@@ -1,0 +1,696 @@
+<div class="flex-1 text-white pl-[320px] pr-[37px] py-10 w-full h-full overflow-x-hidden overflow-y-auto">
+  <h1 class="text-4xl font-bold mb-4 text_azul_azulado_ecoHuancan">HORARIO DE RECOLECCIÓN DE BASURA</h1>
+
+  <div class="mt-10">
+    <form
+      autocomplete="off"
+      [formGroup]="myform2"
+      (ngSubmit)="crearhorario()"
+      >
+      <div class="bg_azul_azulado_ecoHuancan p-4 rounded max-w-lg justify-start">
+        <label class="block text-white text-sm font-bold mb-1">RUTA</label>
+        <div class="flex items-center mb-1">
+          <div class="relative">
+            <select
+              formControlName="ruta_id"
+              class="shadow border rounded w-32 py-2 px-3 text-gray-700 leading-tight focus:outline-none mr-4">
+              <option *ngFor="let item of ruta"
+              value="{{item.ruta_id}}">{{item.ruta_nombre}}</option>
+            </select>
+          </div>
+           <!--svg para agregar ruta-->
+          <svg
+            (click)="open()"
+            clip-rule="evenodd"
+            fill-rule="evenodd"
+            stroke-linejoin="round"
+            stroke-miterlimit="2"
+            viewBox="0 0 24 24"
+            class="w-12 h-12"
+            xmlns="http://www.w3.org/2000/svg">
+            <g class="group cursor-pointer">
+              <circle cx="12" cy="12" r="5" class="fill-[#1c99beff] group-hover:fill-[#ffffff]"></circle>
+              <path
+                class="fill-[#ffffff] group-hover:fill-[#1c99beff]"
+                d="m12.002 2c5.518 0 9.998 4.48 9.998 9.998 0 5.517-4.48 9.997-9.998 9.997-5.517 0-9.997-4.48-9.997-9.997 0-5.518 4.48-9.998 9.997-9.998zm-.747 9.25h-3.5c-.414 0-.75.336-.75.75s.336.75.75.75h3.5v3.5c0 .414.336.75.75.75s.75-.336.75-.75v-3.5h3.5c.414 0 .75-.336.75-.75s-.336-.75-.75-.75h-3.5v-3.5c0-.414-.336-.75-.75-.75s-.75.336-.75.75z" fill-rule="nonzero">
+              </path>
+            </g>
+          </svg>
+          <!--svg para eliminar ruta-->
+          <svg
+            (click)="openEliminarRuta()"
+            clip-rule="evenodd"
+            fill-rule="evenodd"
+            stroke-linejoin="round"
+            stroke-miterlimit="2"
+            viewBox="0 0 24 24"
+            class="w-12 h-12"
+            xmlns="http://www.w3.org/2000/svg">
+            <g class="group cursor-pointer">
+              <circle cx="12" cy="12" r="5" class="fill-[#1c99beff] group-hover:fill-[#ffffff]"></circle>
+            <path
+              class="fill-white group-hover:fill-[#1c99beff]"
+              d="m12.002 2.005c5.518 0 9.998 4.48 9.998 9.997 0 5.518-4.48 9.998-9.998 9.998-5.517 0-9.997-4.48-9.997-9.998 0-5.517 4.48-9.997 9.997-9.997zm4.253 9.25h-8.5c-.414 0-.75.336-.75.75s.336.75.75.75h8.5c.414 0 .75-.336.75-.75s-.336-.75-.75-.75z" fill-rule="nonzero">
+            </path>
+            </g>
+          </svg>
+        </div>
+        <p class="text-sm text-white mb-6">Ruta del camión recolector</p>
+
+        <!--modal del agregar una ruta-->
+        <div
+          *ngIf="show"
+          id="modal-component-container"
+          class="fixed inset-0 z-40">
+          <div
+            class="modal-flex-container flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0"
+            >
+            <div class="modal-bg-container fixed inset-0 bg-gray-800 bg-opacity-[0.65]"></div>
+
+            <div class="modal-space-container hidden sm:inline-block sm:align-middle sm:h-screen"></div>
+
+            <div
+              class="
+              modal-container
+              inline-block
+              align-bottom
+              bg-white
+              rounded-lg
+              text-left
+              overflow-hidden
+              shadow-xl
+              transform
+              transition-all
+              w-full
+              sm:my-8
+              sm:align-middle
+              sm:max-w-md">
+              <form
+                autocomplete="off"
+                [formGroup]="myform"
+                (ngSubmit)="anadirruta()"
+                >
+                <div class="modal-wrapper bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                  <div class="modal-wrapper-flex sm:flex sm:items-start sm:justify-center">
+
+                    <div class="modal-content w-full text-center mt-center mt-3 sm:mt-0 sm:text-left space-y-2">
+                      <h3 class="text-lg text_azul_azulado_ecoHuancan font-bold">RUTA</h3>
+                      <div class="space-y-2">
+                        <label class="text-gray-700 font-medium flex justify-start">Ingrese el nombre de la ruta</label>
+                        <input
+                          type="text"
+                          formControlName="ruta_nombre"
+                          class="px-5 py-2 w-full border-2 border-[#1b6b86ff] rounded-md focus:outline-none text-black"
+                        placeholder="Example: Ruta N°3"
+                        >
+                      </div>
+                      <div class="space-y-2">
+                        <label class="font-medium leading-6 text-gray-900 flex justify-start">Ingrese la descripcion (opcional)</label>
+                        <textarea
+                          type="text"
+                          formControlName="ruta_descripcion"
+                          class="block w-full rounded-md border-2 border-[#1b6b86ff] px-5 py-2 text-gray-900 focus:outline-none sm:text-sm sm:leading-6">
+                        </textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-actions bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                  <button
+                    (click)="close()"
+                    type="button"
+                    class="
+                    w-full inline-flex
+                    justify-center
+                    rounded-md border border-transparent
+                    shadow-md
+                    px-4 py-2
+                    bg-white font-medium text-gray-700
+                    hover:bg-gray-50
+                    focus:outline-none
+                    focus:ring-offset-2
+                    focus:ring-blue-200
+                    sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                    Cancelar
+                  </button>
+                  <button
+                    type="submit"
+                    class="
+                    w-full inline-flex
+                    justify-center
+                    rounded-md border border-transparent
+                    shadow-md
+                    px-4 py-2 mt-3
+                    bg_azul_crayola_ecoHuancan font-medium text-white
+                    hover:bg-[#1b6b86ff]
+                    focus:outline-none
+                    focus:ring-offset-2
+                    focus:ring-blue-200
+                    sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                    Añadir
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!--modal del elimnar ruta-->
+        <div
+          *ngIf="showEliminarRuta"
+          class="fixed inset-0 z-40">
+          <div
+            class="modal-flex-container flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0"
+            >
+            <div class="modal-bg-container fixed inset-0 bg-gray-800 bg-opacity-[0.65]"></div>
+
+            <div class="modal-space-container hidden sm:inline-block sm:align-middle sm:h-screen"></div>
+
+            <div
+              class="
+              modal-container
+              inline-block
+              align-bottom
+              bg-white
+              rounded-lg
+              text-left
+              overflow-hidden
+              shadow-xl
+              transform
+              transition-all
+              w-full
+              sm:my-8
+              sm:align-middle
+              sm:max-w-lg">
+              <form
+                >
+                <div class="modal-wrapper bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                  <div class="modal-wrapper-flex sm:flex sm:items-start sm:justify-center">
+
+                    <div class="modal-content w-full text-center mt-center mt-3 sm:mt-0 sm:text-left space-y-2">
+                      <h3 class="text-lg text_azul_azulado_ecoHuancan font-bold">LISTADO DE RUTAS</h3>
+                      <div class="space-y-2">
+                        <table>
+                          <thead class="text_azul_azulado_ecoHuancan">
+                            <tr class="" >
+                              <th class="px-2 py-1 border-b-2">ID</th>
+                              <th class="px-2 py-1 border-b-2">NOMBRE</th>
+                              <th class="px-2 py-1 border-b-2">DESCRIPCION</th>
+                              <th class="px-2 py-1 border-b-2">ACCIÓN</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let item of ruta">
+                              <td class="text-black px-2 py-1 border-b-2">{{item.ruta_id}}</td>
+                              <td class="text-black px-2 py-1 border-b-2">{{item.ruta_nombre}}</td>
+                              <td class="text-black px-2 py-1 border-b-2">{{item.ruta_descripcion}}</td>
+                              <td class="w-full h-full flex justify-center items-center py-1 border-b-2">
+                                <!--Eliminar-->
+                                <svg
+                                  (click)="deleteruta(item.ruta_id)"
+                                  clip-rule="evenodd"
+                                  fill-rule="evenodd"
+                                  stroke-linejoin="round"
+                                  stroke-miterlimit="2"
+                                  viewBox="0 0 24 24"
+                                  class="w-10 h-10 fill-[#ff0000] border-2 border-[#ff0000] rounded-md p-2 hover:border-2 hover:border-[#ff0000] hover:bg-[#ff0000] hover:fill-[#ffffff] cursor-pointer"
+                                  xmlns="http://www.w3.org/2000/svg">
+                                  <path d="m20.015 6.506h-16v14.423c0 .591.448 1.071 1 1.071h14c.552 0 1-.48 1-1.071 0-3.905 0-14.423 0-14.423zm-5.75 2.494c.414 0 .75.336.75.75v8.5c0 .414-.336.75-.75.75s-.75-.336-.75-.75v-8.5c0-.414.336-.75.75-.75zm-4.5 0c.414 0 .75.336.75.75v8.5c0 .414-.336.75-.75.75s-.75-.336-.75-.75v-8.5c0-.414.336-.75.75-.75zm-.75-5v-1c0-.535.474-1 1-1h4c.526 0 1 .465 1 1v1h5.254c.412 0 .746.335.746.747s-.334.747-.746.747h-16.507c-.413 0-.747-.335-.747-.747s.334-.747.747-.747zm4.5 0v-.5h-3v.5z" fill-rule="nonzero"/>
+                                </svg>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-actions bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                  <button
+                    (click)="closeEliminarRuta()"
+                    type="button"
+                    class="
+                    w-full inline-flex
+                    justify-center
+                    rounded-md border border-transparent
+                    shadow-md
+                    px-4 py-2
+                    bg-white font-medium text-gray-700
+                    hover:bg-gray-50
+                    focus:outline-none
+                    focus:ring-offset-2
+                    focus:ring-blue-200
+                    sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                    Salir
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <!--formulario-->
+        <label class="block text-white text-sm font-bold mb-1" for="dia">DÍA</label>
+        <div class="flex items-center mb-1">
+          <div>
+            <select
+              id="dia"
+              formControlName="dia"
+              class="shadow border rounded w-32 py-2 px-3 text-gray-700 focus:outline-none mr-4">
+              <option value="Lunes" selected>Lunes</option>
+              <option value="Martes">Martes</option>
+              <option value="Miércoles">Miércoles</option>
+              <option value="Jueves">Jueves</option>
+              <option value="Viernes">Viernes</option>
+              <option value="Sábado">Sábado</option>
+              <option value="Domingo">Domingo</option>
+            </select>
+          </div>
+        </div>
+        <p class="text-sm text-white mb-6">Día de recolección</p>
+
+        <label class="block text-white text-sm font-bold mb-1" for="horario">HORARIO</label>
+        <div class="flex items-center mb-1">
+          <div class="">
+            <input
+              id="hora"
+              type="time"
+              formControlName="hora_inicio"
+              class="shadow appearance-none border rounded px-2 py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mr-1 w-24 text-center">
+          </div>
+        </div>
+        <p class="text-sm text-white mb-6">Hora/Minuto</p>
+
+        <label class="block text-white text-sm font-bold mb-1" for="recorrido">RECORRIDO</label>
+        <div class="flex items-center mb-1">
+          <div class="">
+            <input
+              id="dia"
+              type="text"
+              formControlName="recorrido"
+              placeholder="Recorrido"
+              class="shadow appearance-none border rounded w-80 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mr-4"/>
+          </div>
+        </div>
+        <p class="text-sm text-white mb-6">Recorrido del compactador de residuos solidos</p>
+        <!-- <label class="block text-white text-sm font-bold mb-1" for="recorrido">PUNTO DE RECOLECCIÓN</label>
+        <div class="flex items-center mb-1">
+          <div class="">
+            <input
+              id="dia"
+              type="text"
+              formControlName="referencia_punto"
+              placeholder="Referencia"
+              class="shadow appearance-none border rounded w-80 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mr-4"/>
+
+          </div>
+        </div>
+        <p class="text-sm text-white mb-6">Referencia de la calle</p> -->
+        <div class="w-full flex justify-end">
+          <button
+            class="bg-[#ffffff] hover:bg-[#1c99beff] hover:text-white text-[#1c99beff] font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            type="submit">
+            Añadir
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="text-center mt-14">
+    <h2 class="text-black text-lg font-bold py-4"></h2>
+    <div class="flex w-full py-4">
+      <div class="">
+        <select
+          class="shadow border rounded w-32 py-2 px-3 text-gray-700 focus:outline-none mr-4 font-bold"
+          [(ngModel)]="rutaSeleccionada"
+          (change)="seleccionarRuta(rutaSeleccionada)"
+        >
+          <option value="null">Rutas</option>
+          <option *ngFor="let item of ruta"
+            value="{{item.ruta_id}}">{{item.ruta_nombre}}
+          </option>
+        </select>
+      </div>
+      <div>
+        <select
+          id="dia"
+          class="shadow border rounded w-32 py-2 px-3 text-gray-700 focus:outline-none mr-4 font-bold"
+          [(ngModel)]="diaSeleccionada"
+          (change)="seleccionarDia(diaSeleccionada)"
+        >
+          <option
+            *ngFor="let dia of diasSemana"
+            value="{{dia}}">{{dia}}
+          </option>
+        </select>
+      </div>
+      <div class="flex justify-end w-full">
+        <div class="flex px-5 w-[50%] py-1 border border-[#1b6b86ff] rounded-full text-black placeholder-gray-500 space-x-4">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="w-11 h-10 p-2 fill-black"
+            viewBox="0 0 24 24">
+            <path d="M23.809 21.646l-6.205-6.205c1.167-1.605 1.857-3.579 1.857-5.711 0-5.365-4.365-9.73-9.731-9.73-5.365 0-9.73 4.365-9.73 9.73 0 5.366 4.365 9.73 9.73 9.73 2.034 0 3.923-.627 5.487-1.698l6.238 6.238 2.354-2.354zm-20.955-11.916c0-3.792 3.085-6.877 6.877-6.877s6.877 3.085 6.877 6.877-3.085 6.877-6.877 6.877c-3.793 0-6.877-3.085-6.877-6.877z"/>
+          </svg>
+          <!--barra de busqueda-->
+          <input
+            type="text"
+            [(ngModel)]="textBusqueda"
+            placeholder="Buscar por recorrido en la ruta o dia seleccionado"
+            class="focus:outline-none w-full"
+          >
+          <!--borrar texto-->
+          <svg
+            (click)="borrarTexto()"
+            clip-rule="evenodd"
+            fill-rule="evenodd"
+            stroke-linejoin="round"
+            stroke-miterlimit="2"
+            viewBox="0 0 24 24"
+            class="w-11 h-10 p-2 cursor-pointer hover:rounded-full hover:bg-gray-300 hover:stroke-white"
+            xmlns="http://www.w3.org/2000/svg">
+            <path stroke="black" stroke-width="2" d="m12 10.93 5.719-5.72c.146-.146.339-.219.531-.219.404 0 .75.324.75.749 0 .193-.073.385-.219.532l-5.72 5.719 5.719 5.719c.147.147.22.339.22.531 0 .427-.349.75-.75.75-.192 0-.385-.073-.531-.219l-5.719-5.719-5.719 5.719c-.146.146-.339.219-.531.219-.401 0-.75-.323-.75-.75 0-.192.073-.384.22-.531l5.719-5.719-5.72-5.719c-.146-.147-.219-.339-.219-.532 0-.425.346-.749.75-.749.192 0 .385.073.531.219z"/>
+          </svg>
+
+          <!--boton buscar-->
+          <svg
+            (click)="buscarPorRecorrido()"
+            xmlns="http://www.w3.org/2000/svg"
+            class="w-[46px] h-10 md:w-[46px] md:h-10 p-2 bg-[#1b6b86ff] hover:bg-[#1c99beff] cursor-pointer rounded-full fill-white"
+            viewBox="0 0 24 24">
+            <path stroke="white" stroke-width="2" d="M23.809 21.646l-6.205-6.205c1.167-1.605 1.857-3.579 1.857-5.711 0-5.365-4.365-9.73-9.731-9.73-5.365 0-9.73 4.365-9.73 9.73 0 5.366 4.365 9.73 9.73 9.73 2.034 0 3.923-.627 5.487-1.698l6.238 6.238 2.354-2.354zm-20.955-11.916c0-3.792 3.085-6.877 6.877-6.877s6.877 3.085 6.877 6.877-3.085 6.877-6.877 6.877c-3.793 0-6.877-3.085-6.877-6.877z"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="w-full">
+    <div class="shadow-lg">
+      <table class="min-w-full">
+        <thead>
+          <tr class="bg-[#1b6b86ff] text-white text-center align-middle">
+            <th class="py-4 w-20">ID</th>
+            <th class="py-4 w-36">DÍA</th>
+            <th class="py-4 w-[130px]">HORA</th>
+            <th class="py-4 w-[448px]">RECORRIDO</th>
+            <!-- <th class="py-4 w-[448px]">REFERENCIA DE PUNTO DE RECOLECCIÓN</th> -->
+            <th class="py-4 w-32">RUTA</th>
+            <th class="py-4 w-40">ACCIÓN</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of horario; let i=index"
+            [ngClass]="{'bg-gray-100': i % 2}"
+            class="text-center align-middle">
+            <td class="px-2 py-2 text-black">{{item.horariopunto_id}}</td>
+            <td class="px-2 py-2 text-black">{{item.horariopunto_dia || ''}}</td>
+            <td class="px-2 py-2 text-black">{{item.horariopunto_hora_inicio}}</td>
+            <td class="px-2 py-2 text-black break-words max-w-md">{{item.horariopunto_recorrido}}</td>
+            <!-- <td class="px-2 py-2 text-black break-words max-w-md">{{item.horariopunto_referencia_punto}}</td> -->
+            <td class="px-2 py-2 text-black">{{item.ruta_nombre}}</td>
+            <td class="w-full h-full py-2 px-5 space-x-4 flex justify-center items-center">
+              <!--Editar-->
+              <svg
+                (click)="openEditar(item.horariopunto_id)"
+                clip-rule="evenodd"
+                fill-rule="evenodd"
+                stroke-linejoin="round"
+                stroke-miterlimit="2"
+                viewBox="0 0 24 24"
+                class="w-12 h-12 fill-[#1c99beff]  border border-[#1c99beff] rounded-md p-2 hover:bg-[#1c99beff] hover:fill-[#ffffff] cursor-pointer"
+                xmlns="http://www.w3.org/2000/svg">
+                <path d="m4.481 15.659c-1.334 3.916-1.48 4.232-1.48 4.587 0 .528.46.749.749.749.352 0 .668-.137 4.574-1.492zm1.06-1.061 3.846 3.846 11.321-11.311c.195-.195.293-.45.293-.707 0-.255-.098-.51-.293-.706-.692-.691-1.742-1.74-2.435-2.432-.195-.195-.451-.293-.707-.293-.254 0-.51.098-.706.293z" fill-rule="nonzero"/>
+              </svg>
+              <!--Eliminar-->
+              <svg
+                (click)="openEliminar(item.horariopunto_id)"
+                clip-rule="evenodd"
+                fill-rule="evenodd"
+                stroke-linejoin="round"
+                stroke-miterlimit="2"
+                viewBox="0 0 24 24"
+                class="w-12 h-12 fill-[#ff0000] border border-[#ff0000] rounded-md p-2 hover:border-2 hover:border-[#ff0000] hover:bg-[#ff0000] hover:fill-[#ffffff] cursor-pointer"
+                xmlns="http://www.w3.org/2000/svg">
+                <path d="m20.015 6.506h-16v14.423c0 .591.448 1.071 1 1.071h14c.552 0 1-.48 1-1.071 0-3.905 0-14.423 0-14.423zm-5.75 2.494c.414 0 .75.336.75.75v8.5c0 .414-.336.75-.75.75s-.75-.336-.75-.75v-8.5c0-.414.336-.75.75-.75zm-4.5 0c.414 0 .75.336.75.75v8.5c0 .414-.336.75-.75.75s-.75-.336-.75-.75v-8.5c0-.414.336-.75.75-.75zm-.75-5v-1c0-.535.474-1 1-1h4c.526 0 1 .465 1 1v1h5.254c.412 0 .746.335.746.747s-.334.747-.746.747h-16.507c-.413 0-.747-.335-.747-.747s.334-.747.747-.747zm4.5 0v-.5h-3v.5z" fill-rule="nonzero"/>
+              </svg>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div *ngIf="loading" class="flex w-full h-auto justify-center items-center text-center py-5">
+        <div class="loader"></div>
+      </div>
+    </div>
+  </div>
+  <!--modal del editar un horario-->
+  <div
+    *ngIf="showEditar"
+    id="modal-component-container"
+    class="fixed inset-0 z-40">
+    <div
+      class="modal-flex-container flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0"
+      >
+      <div class="modal-bg-container fixed inset-0 bg-gray-800 bg-opacity-[0.65]"></div>
+
+      <div class="modal-space-container hidden sm:inline-block sm:align-middle sm:h-screen"></div>
+
+      <div
+        class="
+        modal-container
+        inline-block
+        align-bottom
+        bg-white
+        rounded-lg
+        text-left
+        overflow-hidden
+        shadow-xl
+        transform
+        transition-all
+        w-full
+        sm:my-8
+        sm:align-middle
+        sm:max-w-lg">
+        <form
+          autocomplete="off"
+          [formGroup]="myform2"
+          (ngSubmit)="idHorario !=null ? editarhorario(idHorario) : null"
+          >
+          <div class="modal-wrapper bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+            <div class="modal-wrapper-flex sm:flex sm:items-start sm:justify-center">
+
+              <div
+                class="modal-content w-full text-center mt-center mt-3 sm:mt-0 sm:text-left space-y-2">
+                <h3 class="text-lg text-gray-900 font-bold">Editar</h3>
+                <div class="space-y-2">
+                  <label class="text-gray-400 font-medium flex justify-start">ID</label>
+                  <p
+                    class="text-gray-400">{{idHorario}}</p>
+                </div>
+                <div class="space-y-2">
+                  <label class="text-gray-700 font-medium flex justify-start">Ruta</label>
+                  <select
+                    id="ruta_id"
+                    formControlName="ruta_id"
+                    class="shadow border rounded w-32 py-2 px-3 text-gray-700 leading-tight focus:outline-none mr-4">
+                    <option *ngFor="let item of ruta"
+                      value="{{item.ruta_id}}">{{item.ruta_nombre}}
+                    </option>
+                  </select>
+                </div>
+                <div class="space-y-2">
+                  <label class="text-gray-700 font-medium flex justify-start">Dia</label>
+                  <select
+                    id="dia"
+                    formControlName="dia"
+                    class="shadow border rounded w-32 py-2 px-3 text-gray-700 focus:outline-none mr-4">
+                    <option value="Lunes">Lunes</option>
+                    <option value="Martes">Martes</option>
+                    <option value="Miércoles">Miércoles</option>
+                    <option value="Jueves">Jueves</option>
+                    <option value="Viernes">Viernes</option>
+                    <option value="Sábado">Sábado</option>
+                    <option value="Domingo">Domingo</option>
+                  </select>
+                </div>
+                <div class="space-y-2">
+                  <label class="text-gray-700 font-medium flex justify-start">Hora (hh:mm)</label>
+                  <input
+                    type="time"
+                    formControlName="hora_inicio"
+
+                    class="px-5 py-2 w-full border-2 border-[#1c99beff] rounded-md focus:outline-none text-black"
+                  >
+                </div>
+                <div class="space-y-2">
+                  <label class="text-gray-700 font-medium flex justify-start">Recorrido (calle)</label>
+                  <input
+                    type="text"
+                    formControlName="recorrido"
+                    class="px-5 py-2 w-full border-2 border-[#1c99beff] rounded-md focus:outline-none text-black"
+                  >
+                </div>
+                <!-- <div class="space-y-2">
+                  <label class="text-gray-700 font-medium flex justify-start">Punto de recolección</label>
+                  <input
+                    type="text"
+                    formControlName="referencia_punto"
+                    class="px-5 py-2 w-full border-2 border-[#00A166] rounded-md focus:outline-none text-black"
+                  >
+                </div> -->
+              </div>
+            </div>
+          </div>
+          <div class="modal-actions bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+            <button
+              (click)="closeEditar()"
+              type="button"
+              class="
+              w-full inline-flex
+              justify-center
+              rounded-md border border-transparent
+              shadow-md
+              px-4 py-2
+              bg-white font-medium text-gray-700
+              hover:bg-gray-50
+              focus:outline-none
+              focus:ring-offset-2
+              focus:ring-blue-200
+              sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+              Cancelar
+            </button>
+            <button
+              type="submit"
+              class="
+              w-full inline-flex
+              justify-center
+              rounded-md border border-transparent
+              shadow-md
+              px-4 py-2 mt-3
+              bg-[#1c99beff] font-medium text-white
+              hover:bg-[#1b6b86ff]
+              focus:outline-none
+              focus:ring-offset-2
+              focus:ring-blue-200
+              sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+              Editar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!--modal del elimnar un registro de horario-->
+  <div
+    *ngIf="showEliminar"
+    id="modal-component-container"
+    class="fixed inset-0 z-40">
+    <div
+      class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0"
+      >
+      <div class="fixed inset-0 bg-gray-800 bg-opacity-[0.65]"></div>
+
+      <div class="hidden sm:inline-block sm:align-middle sm:h-screen"></div>
+
+      <div
+        class="
+        inline-block
+        align-bottom
+        bg-white
+        rounded-lg
+        text-left
+        overflow-hidden
+        shadow-xl
+        transform
+        transition-all
+        w-full
+        sm:my-8
+        sm:align-middle
+        sm:max-w-md">
+        <form
+          autocomplete="off"
+          (ngSubmit)=" idHorarioEliminar != null? deletehorario(idHorarioEliminar): null"
+          >
+          <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+            <div class="sm:flex sm:items-start sm:justify-center gap-4">
+              <div class="h-20 flex items-center">
+                <svg
+                clip-rule="evenodd"
+                fill-rule="evenodd"
+                stroke-linejoin="round"
+                stroke-miterlimit="2"
+                viewBox="0 0 24 24"
+                class="w-12 h-12 fill-[#d33434] border-2 border-[#d33434] rounded-md p-2"
+                xmlns="http://www.w3.org/2000/svg">
+                <path d="m20.015 6.506h-16v14.423c0 .591.448 1.071 1 1.071h14c.552 0 1-.48 1-1.071 0-3.905 0-14.423 0-14.423zm-5.75 2.494c.414 0 .75.336.75.75v8.5c0 .414-.336.75-.75.75s-.75-.336-.75-.75v-8.5c0-.414.336-.75.75-.75zm-4.5 0c.414 0 .75.336.75.75v8.5c0 .414-.336.75-.75.75s-.75-.336-.75-.75v-8.5c0-.414.336-.75.75-.75zm-.75-5v-1c0-.535.474-1 1-1h4c.526 0 1 .465 1 1v1h5.254c.412 0 .746.335.746.747s-.334.747-.746.747h-16.507c-.413 0-.747-.335-.747-.747s.334-.747.747-.747zm4.5 0v-.5h-3v.5z" fill-rule="nonzero"/>
+                </svg>
+              </div>
+              <div class="w-full text-center mt-center mt-3 sm:mt-0 sm:text-left space-y-2">
+                <h3 class="text-lg text-gray-900 font-bold">Eliminar</h3>
+                <div class="space-y-2">
+                  <label class="text-gray-700 font-medium flex justify-start">¿Estas seguro de que deseas elimnar este registro?</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+            <button
+              (click)="closeEliminar()"
+              type="button"
+              class="
+              w-full inline-flex
+              justify-center
+              rounded-md border border-transparent
+              shadow-md
+              px-4 py-2
+              bg-white font-medium text-gray-700
+              hover:bg-gray-50
+              focus:outline-none
+              focus:ring-offset-2
+              focus:ring-blue-200
+              sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+              Cancelar
+            </button>
+            <button
+              type="submit"
+              class="
+              w-full inline-flex
+              justify-center
+              rounded-md border border-transparent
+              shadow-md
+              px-4 py-2 mt-3
+              bg-[#1c99beff] font-medium text-white
+              hover:bg-[#1b6b86ff]
+              focus:outline-none
+              focus:ring-offset-2
+              focus:ring-blue-200
+              sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+              Eliminar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!--loading del horario-->
+  <div
+    *ngIf="isLoading"
+    class="fixed inset-0 z-40">
+    <!--loading-flex-container-->
+    <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+      <!--loading-bg-container-->
+      <div class="fixed inset-0 bg-gray-800 bg-opacity-[0.50]"></div>
+      <!--loading-space-container-->
+      <div class="hidden sm:inline-block sm:align-middle sm:h-screen"></div>
+      <!--loading-container -->
+      <div class="inline-block transform transition-all sm:max-w-[100px]">
+        <!--loading-wrapper-->
+        <div class="px-2 py-2 sm:p-3">
+          <div class="loaderEditar"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

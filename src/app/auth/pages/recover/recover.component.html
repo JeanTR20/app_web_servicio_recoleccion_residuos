@@ -1,0 +1,75 @@
+<div class="relative top-0 min-h-screen w-full overflow-x-hidden max-xs:overflow-y-hidden">
+  <div>
+    <shared-header></shared-header>
+  </div>
+  <div class="w-full h-screen pt-[81px] color3 flex items-center max-lg:justify-center">
+    <img
+        src="assets/img/portada.jpg"
+        alt="portada"
+        class="w-full h-full object-cover pointer-events-none
+      ">
+
+    <div class="absolute inset-0 bg-black opacity-50 pointer-events-none"></div>
+
+    <div class="absolute ml-48 py-4 pr-20 border-b-[10px] max-3xl:ml-20 max-2xl:ml-20 max-xl:pr-10 max-sm:hidden max-lg:hidden">
+      <span class="font-black text-6xl text-white max-xl:text-4xl">Unidos Siempre</span>
+    </div>
+
+    <div class="absolute right-48 border-2 w-[480px] h-[480px] rounded-[30px]
+      max-3xl:right-20
+      max-lg:right-auto
+      max-xs:hidden
+    ">
+    </div>
+
+    <div class="absolute right-[215px] px-10 bg-[#1c99beff] w-[435px] 2xl:max-w-[1536px] h-[438px] opacity-60 rounded-[15px] flex items-center
+    max-3xl:right-[102px]
+    max-lg:right-auto
+    max-xs:rounded-none max-xs:top-40 max-xs:w-full max-xs:h-full ">
+    </div>
+
+    <div class="absolute right-[200px] px-10 w-[435px] 2xl:max-w-[1536px] h-[438px] rounded-[15px] flex justify-center items-center
+      max-3xl:right-28
+      max-lg:right-auto
+      max-xs:rounded-none max-xs:w-auto max-xs:h-auto
+      ">
+      <form
+        autocomplete="off"
+        [formGroup]="myform"
+        (ngSubmit)="enviarcelular()"
+        class="w-full"
+        >
+        <h2 class="w-full flex justify-center font-bold text-white max-xs:mt-10 max-xs:leading-normal">¿Olvidó su contraseña?</h2>
+        <h6 class="w-full text-white mt-4 max-xs:text-4xl max-xs:mt-10 max-xs:leading-normal">Ingrese su número de celular registrado para el envio de código de verificación.</h6>
+        <div class="space-y-1 mt-5 max-xs:space-y-5 max-xs:mt-10">
+          <h6 class="w-full text-white max-xs:text-4xl">Número de celular</h6>
+          <input
+            type="text"
+            formControlName="celular"
+            class="w-full py-2 px-2 rounded-[4px] text-lg max-xs:text-[20px] max-xs:p-7 focus:outline-none max-xsm:text-4xl"
+            maxlength="9"
+            (keypress)="validarInputCelular($event)"
+            >
+        </div>
+        <div class="w-full flex justify-center mt-10 max-xs:mt-20">
+          <button type="submit" class="px-10 py-2 bg_verde_esmeralda_ecoHuancan text-white rounded-md font-semibold text-lg max-xs:text-4xl max-xs:px-20 max-xs:py-7 max-xs:rounded-xl">
+            Enviar
+          </button>
+        </div>
+        <div class="flex h-[50px] w-[50px] rounded-full bg-slate-300 mt-4 hover:bg-white">
+          <svg
+            clip-rule="evenodd"
+            fill-rule="evenodd"
+            stroke-linejoin="round"
+            stroke-miterlimit="2"
+            viewBox="0 0 24 24"
+            class="w-12 h-12 max-xs:w-24 max-xs:h-24 fill-[#3ab349ff] hover:fill-[#3ab349ff] cursor-pointer focus:outline-none shadow-sm"
+            [routerLink]="['/autenticacion/iniciar_sesion']"
+            xmlns="http://www.w3.org/2000/svg">
+            <path d="m10.978 14.999v3.251c0 .412-.335.75-.752.75-.188 0-.375-.071-.518-.206-1.775-1.685-4.945-4.692-6.396-6.069-.2-.189-.312-.452-.312-.725 0-.274.112-.536.312-.725 1.451-1.377 4.621-4.385 6.396-6.068.143-.136.33-.207.518-.207.417 0 .752.337.752.75v3.251h9.02c.531 0 1.002.47 1.002 1v3.998c0 .53-.471 1-1.002 1z" fill-rule="nonzero"/>
+          </svg>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

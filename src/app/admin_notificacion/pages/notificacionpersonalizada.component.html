@@ -1,0 +1,209 @@
+<div class="flex-1 pl-[320px] pr-8 py-10 text-white h-full w-full overflow-x-hidden select-none">
+  <div class="container mx-auto">
+    <h1 class="text-4xl font-bold text_azul_azulado_ecoHuancan py-4">ENVIAR NOTIFICACIONES PERSONALIZADAS A USUARIOS</h1>
+    <h4 class="text-black py-4">En esta parte podrá hacer notificaciones personalizadas de recordatorio o problemas con el recojo de basura para enviar a todos los usuarios residentes que tengan permitido recibir notificaciones por la aplicación web ecoHuancán.</h4>
+  </div>
+  <div class="bg_azul_azulado_ecoHuancan p-8 rounded w-[60%]">
+    <form
+      autocomplete="off"
+      [formGroup]="myformnotificacion"
+      >
+      <label class="block text-white text-md font-bold mb-4" for="titulo">TITULO</label>
+      <div class="mb-4">
+        <textarea
+          rows="1"
+          formControlName="titulo"
+          placeholder="Máximo 33 caracteres"
+          class="w-[340px] rounded-md border-0 px-5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-[#1b6b86ff] placeholder:text-gray-400 focus:outline-none text-lg"
+          maxlength="33"
+        ></textarea>
+      </div>
+      <svg
+        *ngIf="mostrarPrimerIconoTitulo"
+        (click)="toggleIconTitulo()"
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        class="fill-white cursor-pointer mb-2"
+        viewBox="0 0 24 24">
+        <path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm5.507 13.941c-1.512 1.195-3.174 1.931-5.506 1.931-2.334 0-3.996-.736-5.508-1.931l-.493.493c1.127 1.72 3.2 3.566 6.001 3.566 2.8 0 4.872-1.846 5.999-3.566l-.493-.493zm-9.007-5.941c-.828 0-1.5.671-1.5 1.5s.672 1.5 1.5 1.5 1.5-.671 1.5-1.5-.672-1.5-1.5-1.5zm7 0c-.828 0-1.5.671-1.5 1.5s.672 1.5 1.5 1.5 1.5-.671 1.5-1.5-.672-1.5-1.5-1.5z"/>
+      </svg>
+      <div class="w-[355px] mb-4">
+        <svg
+          *ngIf="!mostrarPrimerIconoTitulo"
+          (click)="toggleIconTitulo()"
+          clip-rule="evenodd"
+          fill-rule="evenodd"
+          stroke-linejoin="round"
+          stroke-miterlimit="2"
+          viewBox="0 0 24 24"
+          class="w-7 h-7 fill-white cursor-pointer"
+          xmlns="http://www.w3.org/2000/svg">
+          <path d="m12 10.93 5.719-5.72c.146-.146.339-.219.531-.219.404 0 .75.324.75.749 0 .193-.073.385-.219.532l-5.72 5.719 5.719 5.719c.147.147.22.339.22.531 0 .427-.349.75-.75.75-.192 0-.385-.073-.531-.219l-5.719-5.719-5.719 5.719c-.146.146-.339.219-.531.219-.401 0-.75-.323-.75-.75 0-.192.073-.384.22-.531l5.719-5.719-5.72-5.719c-.146-.147-.219-.339-.219-.532 0-.425.346-.749.75-.749.192 0 .385.073.531.219z"/>
+        </svg>
+        <div
+          *ngIf="showEmoticonesTitulo"
+          >
+          <emoji-mart title="Elige un emoji" (emojiClick)="addEmojiTitulo($event)"></emoji-mart>
+        </div>
+      </div>
+      <label class="block text-white text-md font-bold mb-4" for="descripcion">DESCRIPCIÓN</label>
+      <div class="mb-4">
+        <textarea
+          rows="2"
+          formControlName="descripcion"
+          placeholder="Máximo 166 caracteres"
+          class="w-full rounded-md border-0 px-5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-[#1b6b86ff] placeholder:text-gray-400 focus:outline-none text-lg"
+          maxlength="166"
+        ></textarea>
+      </div>
+      <svg
+        *ngIf="mostrarPrimerIconoDescripcion"
+        (click)="toggleIconDescripcion()"
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        class="fill-white cursor-pointer mb-2"
+        viewBox="0 0 24 24">
+        <path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm5.507 13.941c-1.512 1.195-3.174 1.931-5.506 1.931-2.334 0-3.996-.736-5.508-1.931l-.493.493c1.127 1.72 3.2 3.566 6.001 3.566 2.8 0 4.872-1.846 5.999-3.566l-.493-.493zm-9.007-5.941c-.828 0-1.5.671-1.5 1.5s.672 1.5 1.5 1.5 1.5-.671 1.5-1.5-.672-1.5-1.5-1.5zm7 0c-.828 0-1.5.671-1.5 1.5s.672 1.5 1.5 1.5 1.5-.671 1.5-1.5-.672-1.5-1.5-1.5z"/>
+      </svg>
+      <div class="w-[355px]">
+        <svg
+          *ngIf="!mostrarPrimerIconoDescripcion"
+          (click)="toggleIconDescripcion()"
+          clip-rule="evenodd"
+          fill-rule="evenodd"
+          stroke-linejoin="round"
+          stroke-miterlimit="2"
+          viewBox="0 0 24 24"
+          class="w-7 h-7 fill-white cursor-pointer"
+          xmlns="http://www.w3.org/2000/svg">
+          <path d="m12 10.93 5.719-5.72c.146-.146.339-.219.531-.219.404 0 .75.324.75.749 0 .193-.073.385-.219.532l-5.72 5.719 5.719 5.719c.147.147.22.339.22.531 0 .427-.349.75-.75.75-.192 0-.385-.073-.531-.219l-5.719-5.719-5.719 5.719c-.146.146-.339.219-.531.219-.401 0-.75-.323-.75-.75 0-.192.073-.384.22-.531l5.719-5.719-5.72-5.719c-.146-.147-.219-.339-.219-.532 0-.425.346-.749.75-.749.192 0 .385.073.531.219z"/>
+        </svg>
+        <div
+          *ngIf="showEmoticonesDescripcion"
+          >
+          <emoji-mart title="Elige un emoji" (emojiClick)="addEmojiDescripcion($event)"></emoji-mart>
+        </div>
+      </div>
+      <div class="w-full flex justify-end">
+        <button
+          (click)="openEnviarNotificacion()"
+          class="bg-white hover:bg-[#1c99beff] hover:text-white text-[#1c99beff] font-bold py-2 px-8 rounded focus:outline-none focus:shadow-outline">
+          Enviar
+        </button>
+      </div>
+    </form>
+  </div>
+  <div
+    *ngIf="showNotificacion"
+    id="modal-component-container"
+    class="fixed inset-0 z-40">
+    <div
+      class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0"
+      >
+      <div class="fixed inset-0 bg-gray-800 bg-opacity-[0.65]"></div>
+
+      <div class="hidden sm:inline-block sm:align-middle sm:h-screen"></div>
+
+      <div
+        class="
+        inline-block
+        align-bottom
+        bg-white
+        rounded-lg
+        text-left
+        overflow-hidden
+        shadow-xl
+        transform
+        transition-all
+        w-full
+        sm:my-8
+        sm:align-middle
+        sm:max-w-md">
+        <form
+          autocomplete="off"
+          (ngSubmit)="enviarNotificacion()"
+          >
+          <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+            <div class="sm:flex sm:items-start sm:justify-center gap-4">
+              <div class="h-28 flex justify-center items-center">
+                <svg
+                  clip-rule="evenodd"
+                  fill-rule="evenodd"
+                  stroke-linejoin="round"
+                  stroke-miterlimit="2"
+                  viewBox="0 0 24 24"
+                  class="w-16 h-16 fill-[#1c99beff] rounded-md p-2"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path d="m12.002 21.534c5.518 0 9.998-4.48 9.998-9.998s-4.48-9.997-9.998-9.997c-5.517 0-9.997 4.479-9.997 9.997s4.48 9.998 9.997 9.998zm0-1.5c-4.69 0-8.497-3.808-8.497-8.498s3.807-8.497 8.497-8.497 8.498 3.807 8.498 8.497-3.808 8.498-8.498 8.498zm0-6.5c-.414 0-.75-.336-.75-.75v-5.5c0-.414.336-.75.75-.75s.75.336.75.75v5.5c0 .414-.336.75-.75.75zm-.002 3c.552 0 1-.448 1-1s-.448-1-1-1-1 .448-1 1 .448 1 1 1z" fill-rule="nonzero"/>
+                </svg>
+              </div>
+              <div class="w-full text-center mt-center mt-3 sm:mt-0 sm:text-left space-y-2">
+                <h3 class="text-lg text-gray-900 font-bold">Enviar Notificación</h3>
+                <div class="space-y-2">
+                  <label class="text-gray-700 font-medium flex justify-start">¿Estas seguro de que deseas enviar la notificación personalizada a los usuarios?</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+            <button
+              (click)="closeEnviarNotificacion()"
+              type="button"
+              class="
+              w-full inline-flex
+              justify-center
+              rounded-md border border-transparent
+              shadow-md
+              px-4 py-2
+              bg-white font-medium text-gray-700
+              hover:bg-gray-50
+              focus:outline-none
+              focus:ring-offset-2
+              focus:ring-blue-200
+              sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+              Cancelar
+            </button>
+            <button
+              type="submit"
+              class="
+              w-full inline-flex
+              justify-center
+              rounded-md border border-transparent
+              shadow-md
+              px-4 py-2 mt-3
+              bg-[#1c99beff] font-medium text-white
+              hover:bg-[#1b6b86ff]
+              focus:outline-none
+              focus:ring-offset-2
+              focus:ring-blue-200
+              sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+              Aceptar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!--loading del notificacion personalizado-->
+  <div
+    *ngIf="isLoading"
+    class="fixed inset-0 z-40">
+    <!--loading-flex-container-->
+    <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+      <!--loading-bg-container-->
+      <div class="fixed inset-0 bg-gray-800 bg-opacity-[0.50]"></div>
+      <!--loading-space-container-->
+      <div class="hidden sm:inline-block sm:align-middle sm:h-screen"></div>
+      <!--loading-container -->
+      <div class="inline-block transform transition-all sm:max-w-[100px]">
+        <!--loading-wrapper-->
+        <div class="px-2 py-2 sm:p-3">
+          <div class="loader"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,516 @@
+<div>
+  <div>
+    <shared-header></shared-header>
+  </div>
+  <div>
+    <div>
+      <!-- <nav-flotante></nav-flotante> -->
+      <div class="flex justify-center items-center bg_azul_azulado_ecoHuancan w-full h-[120px] mt-[80px] px-10">
+        <h2 class="text-white font-extrabold leading-normal max-sm:text-2xl max-xs:text-4xl">HORARIO DE RECOLECCIÓN</h2>
+      </div>
+    </div>
+    <div class="px-20 py-20 max-lg:px-16 max-lg:py-16 max-xs:px-10 max-xs:py-10">
+      <div class="flex flex-wrap items-center max-lg:flex-col">
+        <div class="w-1/3 h-full space-y-6 max-lg:w-full">
+          <h3 class="text_azul_crayola_ecoHuancan font-extrabold max-sm:text-2xl max-xs:text-4xl max-xs:leading-normal">MIRA TU HORARIO DE RECOLECCIÓN DE BASURA</h3>
+          <h4 class="max-xs:text-3xl max-xs:leading-normal">Explora en el mapa los recorridos específicos que realiza cada camión compactador de recolección. Cada ruta está diseñada para maximizar la eficiencia y asegurar un ambiente saludable y limpio.
+          </h4>
+        </div>
+        <div class="w-2/3 h-[600px] pl-20 max-lg:w-full max-lg:mt-10 max-lg:pl-0 max-xl:h-[500px] max-sm:h-[400px]">
+          <google-map
+            width="100%"
+            height="100%"
+            [center]="center">
+          </google-map>
+        </div>
+      </div>
+      <div class="w-full inline-flex max-xmd:gap-x-10 max-md:flex-col-reverse">
+        <div class="w-1/2 flex mt-14 gap-4 max-lg:flex-col max-xmd:w-auto max-sm:w-full max-xs:gap-10">
+          <div class="space-y-4">
+            <label id="listbox-label" class="block text-sm font-medium text-gray-900 max-xs:text-3xl max-xs:mb-5">Escoge la ruta a visualizar:</label>
+            <div class="w-[200px] relative">
+              <button
+               (click)="toogleDropdown('ruta')"
+                class="relative w-full cursor-default rounded-md bg-white py-2 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-1 focus:ring-[#00D084]
+                sm:text-sm sm:leading-6 max-xs:py-5">
+                <span class="flex items-center">
+                  <span class="ml-3 block truncate max-xs:text-3xl">{{rutaSeleccionada}}</span>
+                </span>
+                <span class="pointer-events-none absolute inset-y-0 right-0 ml-3 flex items-center pr-2">
+                  <svg class="h-5 w-5 text-gray-400 max-xs:h-10 max-xs:w-10" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+                  </svg>
+                </span>
+              </button>
+              <ul
+                *ngIf="isOpenRuta"
+                class="absolute z-10 mt-2 max-h-56 w-full overflow-auto rounded-md bg-white text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                <li *ngFor="let item of ruta"
+                  (click)="seleccionarOpcion('ruta', item.ruta_nombre)"
+
+                  class="text-gray-900 relative cursor-default select-none py-2 pl-3 pr-9 hover-dropdown max-xs:py-4">
+                  <div class="flex items-center">
+                    <span class="font-normal ml-3 block truncate max-xs:text-3xl">{{item.ruta_nombre}}</span>
+                  </div>
+                  <span *ngIf="rutaSeleccionada === item.ruta_nombre"
+                    class="textcolor1 absolute inset-y-0 right-0 flex items-center pr-4">
+                    <svg class="h-5 w-5 max-xs:h-10 max-xs:w-10" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                      <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                    </svg>
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="space-y-4">
+            <label id="listbox-label" class="block text-sm font-medium text-gray-900 max-xs:text-3xl max-xs:mb-5">Escoge el dia a visualizar:</label>
+            <div class="w-[200px] relative">
+              <button
+                (click)="toogleDropdown('dia')"
+                class="relative w-full cursor-default rounded-md bg-white py-2 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-1 focus:ring-[#00D084] sm:text-sm sm:leading-6 max-xs:py-5">
+                <span class="flex items-center">
+                  <span class="ml-3 block truncate max-xs:text-3xl">{{diaSeleccionada || 'Todos'}}</span>
+                </span>
+                <span class="pointer-events-none absolute inset-y-0 right-0 ml-3 flex items-center pr-2">
+                  <svg class="h-5 w-5 text-gray-400 max-xs:h-10 max-xs:w-10" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+                  </svg>
+                </span>
+              </button>
+              <ul
+              *ngIf="isOpenDia"
+                class="absolute z-10 mt-2 max-h-56 w-full overflow-auto rounded-md bg-white text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                <li *ngFor="let dia of diasSemana"
+                  (click)="seleccionarOpcion('dia', dia)"
+
+                  class="text-gray-900 relative cursor-default select-none py-2 pl-3 pr-9 hover-dropdown max-xs:py-4">
+                  <div class="flex items-center">
+                    <span class="font-normal ml-3 block truncate max-xs:text-3xl">{{dia}}</span>
+                  </div>
+                  <span *ngIf="diaSeleccionada === dia"
+                    class="textcolor1 absolute inset-y-0 right-0 flex items-center pr-4">
+                    <svg class="h-5 w-5 max-xs:h-10 max-xs:w-10" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                      <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                    </svg>
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="w-1/2 mt-14 flex max-sm:justify-normal max-sm:w-full">
+          <div class="gap-x-5 space-y-4 max-xs:space-y-8">
+            <label id="listbox-label" class="block text-sm font-medium text-gray-900 max-xs:text-3xl">Programa la fecha y hora a recibir notificaciones:</label>
+            <div class="flex gap-x-5 max-xsl:flex-col max-xsl:gap-y-5">
+
+              <!--datos de programaciones-->
+              <div class="flex gap-x-4 max-lg:flex-col max-lg:space-x-0 max-lg:space-y-5 max-xs:space-y-8"
+                *ngFor="let notificacion of programarNotificacionTipo1">
+                <div class="w-[150px] flex flex-col gap-x-[26px] max-xs:gap-y-5">
+                  <label class="text-gray-400 max-xs:text-3xl">Día</label>
+                  <label
+                    class="w-full h-[38px] rounded-md bg-white py-2 px-3 flex justify-center items-center text-gray-400 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none sm:text-sm sm:leading-6 max-xs:text-3xl max-xs:py-4">
+                    {{notificacion.programar_dia}}
+                  </label>
+                </div>
+                <div class="w-[100px] flex flex-col gap-x-4 max-xs:flex max-xs:gap-y-4">
+                  <label class="text-gray-400 max-xs:text-3xl">Hora</label>
+                  <label
+                    class="w-full h-[38px] rounded-md bg-white px-3 py-2 flex justify-center items-center  text-gray-400 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none sm:text-sm sm:leading-6 max-xs:text-3xl max-xs:py-4"
+                    >
+                    {{notificacion.programar_hora}}
+                  </label>
+                </div>
+              </div>
+
+              <!--boton 1 de programacion-->
+              <div class="w-[162px] self-end max-lg:flex max-lg:justify-start max-sm:w-[180px] max-xs:mt-4 max-xsl:self-start">
+                <button
+                (click)="toogleDropdown('notificacion')"
+                  class="relative w-full cursor-default rounded-md bg_azul_crayola_ecoHuancan hover:bg-[#1b6b86ff] py-2 pl-3 pr-10 text-left text-white focus:outline-none sm:text-sm sm:leading-6 max-xs:py-5 max-xs:pl-6 max-xs:pr-20">
+                  <span class="flex items-center">
+                    <span class="inline-flex items-center gap-x-2 truncate max-xs:text-3xl">
+                      <svg *ngIf="notificacionSeleccionada === 'Personalizar'"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        class="fill-white"
+                        viewBox="0 0 24 24">
+                        <path d="M15.137 3.945c-.644-.374-1.042-1.07-1.041-1.82v-.003c.001-1.172-.938-2.122-2.096-2.122s-2.097.95-2.097 2.122v.003c.001.751-.396 1.446-1.041 1.82-4.667 2.712-1.985 11.715-6.862 13.306v1.749h20v-1.749c-4.877-1.591-2.195-10.594-6.863-13.306zm-3.137-2.945c.552 0 1 .449 1 1 0 .552-.448 1-1 1s-1-.448-1-1c0-.551.448-1 1-1zm3 20c0 1.598-1.392 3-2.971 3s-3.029-1.402-3.029-3h6z"/>
+                      </svg>
+                      <svg
+                        *ngIf="notificacionSeleccionada === 'Ninguna'"
+                        class="cursor-pointer"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        class="fill-white"
+                        viewBox="0 0 24 24">
+                        <path d="M22 17.251v1.749h-13.065l9.444-8.566c.565 2.995 1.013 5.966 3.621 6.817zm-9.971 6.749c1.578 0 2.971-1.402 2.971-3h-6c0 1.598 1.449 3 3.029 3zm10.971-19.802l-20.654 18.735-1.346-1.48 2.705-2.453h-1.705v-1.749c4.877-1.591 2.195-10.594 6.863-13.306.645-.374 1.041-1.069 1.04-1.82v-.003c0-1.172.939-2.122 2.097-2.122s2.097.95 2.097 2.122v.003c-.001.75.396 1.447 1.04 1.82 1.064.618 1.743 1.565 2.22 2.674l4.302-3.901 1.341 1.48zm-12-2.198c0 .552.448 1 1 1s1-.448 1-1c0-.551-.448-1-1-1s-1 .449-1 1z"/>
+                      </svg>
+                      {{notificacionSeleccionada || 'Seleccione'}}
+                    </span>
+                  </span>
+                  <span class="pointer-events-none absolute inset-y-0 right-0 ml-3 flex items-center pr-2">
+                    <svg class="h-5 w-5 text-white max-xs:h-10 max-xs:w-10" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                      <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+                    </svg>
+                  </span>
+                </button>
+                <ul
+                *ngIf="isOpenNotificacion"
+                  class="absolute z-10 mt-1 max-h-56 w-[162px] overflow-auto rounded-md bg-white text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm
+                  max-lg:mt-12 max-lg:w-[162px]
+                  max-sm:w-[180px]
+                  max-xs:w-[180px] max-xs:mt-[45px]">
+                  <li *ngFor="let item of notificacion"
+                    (click)="seleccionarNotificacion(item, 'notificacion')"
+                    class="text-gray-900 relative cursor-default select-none py-2 pl-3 pr-9 hover-dropdown max-xs:py-4">
+                    <div class="w-full">
+                      <span class="font-normal truncate inline-flex max-xs:text-3xl gap-x-2 items-center ">
+                        <svg *ngIf="item === 'Personalizar'"
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="16"
+                          viewBox="0 0 24 24">
+                          <path d="M15.137 3.945c-.644-.374-1.042-1.07-1.041-1.82v-.003c.001-1.172-.938-2.122-2.096-2.122s-2.097.95-2.097 2.122v.003c.001.751-.396 1.446-1.041 1.82-4.667 2.712-1.985 11.715-6.862 13.306v1.749h20v-1.749c-4.877-1.591-2.195-10.594-6.863-13.306zm-3.137-2.945c.552 0 1 .449 1 1 0 .552-.448 1-1 1s-1-.448-1-1c0-.551.448-1 1-1zm3 20c0 1.598-1.392 3-2.971 3s-3.029-1.402-3.029-3h6z"/>
+                        </svg>
+                        <svg
+                          *ngIf="item === 'Ninguna'"
+                          class="cursor-pointer"
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="16"
+                          viewBox="0 0 24 24">
+                          <path d="M22 17.251v1.749h-13.065l9.444-8.566c.565 2.995 1.013 5.966 3.621 6.817zm-9.971 6.749c1.578 0 2.971-1.402 2.971-3h-6c0 1.598 1.449 3 3.029 3zm10.971-19.802l-20.654 18.735-1.346-1.48 2.705-2.453h-1.705v-1.749c4.877-1.591 2.195-10.594 6.863-13.306.645-.374 1.041-1.069 1.04-1.82v-.003c0-1.172.939-2.122 2.097-2.122s2.097.95 2.097 2.122v.003c-.001.75.396 1.447 1.04 1.82 1.064.618 1.743 1.565 2.22 2.674l4.302-3.901 1.341 1.48zm-12-2.198c0 .552.448 1 1 1s1-.448 1-1c0-.551-.448-1-1-1s-1 .449-1 1z"/>
+                        </svg>
+                        {{item}}
+                      </span>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="flex gap-x-5 max-xsl:flex-col max-xsl:gap-y-5">
+              <!--datos de programaciones-->
+              <div class="flex gap-x-4 max-lg:flex-col max-lg:space-x-0 max-lg:space-y-5 max-xs:space-y-8"
+                *ngFor="let notificacion of programarNotificacionTipo2">
+                <div class="w-[150px] flex flex-col gap-x-[26px] max-xs:gap-y-5">
+                  <label class="text-gray-400 max-xs:text-3xl">Día</label>
+                  <label
+                    class="w-full h-[38px] rounded-md bg-white py-2 px-3 flex justify-center items-center text-gray-400 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none sm:text-sm sm:leading-6 max-xs:text-3xl max-xs:py-4">
+                    {{notificacion.programar_dia}}
+                  </label>
+                </div>
+                <div class="w-[100px] flex flex-col gap-x-4 max-xs:flex max-xs:gap-y-4">
+                  <label class="text-gray-400 max-xs:text-3xl">Hora</label>
+                  <label
+                    class="w-full h-[38px] rounded-md bg-white px-3 py-2 flex justify-center items-center  text-gray-400 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none sm:text-sm sm:leading-6 max-xs:text-3xl max-xs:py-4"
+                    >
+                    {{notificacion.programar_hora}}
+                  </label>
+                </div>
+              </div>
+
+              <!--boton 2 de programacion-->
+              <div class="w-[162px] self-end max-lg:flex max-lg:justify-start max-sm:w-[180px] max-xs:mt-4 max-xsl:self-start">
+                <button
+                  (click)="toogleDropdown('notificacion2')"
+                  class="relative w-full cursor-default rounded-md bg_azul_crayola_ecoHuancan hover:bg-[#1b6b86ff] py-2 pl-3 pr-10 text-left text-white focus:outline-none sm:text-sm sm:leading-6 max-xs:py-5 max-xs:pl-6 max-xs:pr-20">
+                  <span class="flex items-center">
+                    <span class="inline-flex items-center gap-x-2 truncate max-xs:text-3xl">
+                      <svg *ngIf="notificacionSeleccionada2 === 'Personalizar'"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        class="fill-white"
+                        viewBox="0 0 24 24">
+                        <path d="M15.137 3.945c-.644-.374-1.042-1.07-1.041-1.82v-.003c.001-1.172-.938-2.122-2.096-2.122s-2.097.95-2.097 2.122v.003c.001.751-.396 1.446-1.041 1.82-4.667 2.712-1.985 11.715-6.862 13.306v1.749h20v-1.749c-4.877-1.591-2.195-10.594-6.863-13.306zm-3.137-2.945c.552 0 1 .449 1 1 0 .552-.448 1-1 1s-1-.448-1-1c0-.551.448-1 1-1zm3 20c0 1.598-1.392 3-2.971 3s-3.029-1.402-3.029-3h6z"/>
+                      </svg>
+                      <svg
+                        *ngIf="notificacionSeleccionada2 === 'Ninguna'"
+                        class="cursor-pointer"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        class="fill-white"
+                        viewBox="0 0 24 24">
+                        <path d="M22 17.251v1.749h-13.065l9.444-8.566c.565 2.995 1.013 5.966 3.621 6.817zm-9.971 6.749c1.578 0 2.971-1.402 2.971-3h-6c0 1.598 1.449 3 3.029 3zm10.971-19.802l-20.654 18.735-1.346-1.48 2.705-2.453h-1.705v-1.749c4.877-1.591 2.195-10.594 6.863-13.306.645-.374 1.041-1.069 1.04-1.82v-.003c0-1.172.939-2.122 2.097-2.122s2.097.95 2.097 2.122v.003c-.001.75.396 1.447 1.04 1.82 1.064.618 1.743 1.565 2.22 2.674l4.302-3.901 1.341 1.48zm-12-2.198c0 .552.448 1 1 1s1-.448 1-1c0-.551-.448-1-1-1s-1 .449-1 1z"/>
+                      </svg>
+                      {{notificacionSeleccionada2 || 'Seleccione'}}
+                    </span>
+                  </span>
+                  <span class="pointer-events-none absolute inset-y-0 right-0 ml-3 flex items-center pr-2">
+                    <svg class="h-5 w-5 text-white max-xs:h-10 max-xs:w-10" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                      <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+                    </svg>
+                  </span>
+                </button>
+                <ul
+                *ngIf="isOpenNotificacion2"
+                  class="absolute z-10 mt-1 max-h-56 w-[162px] overflow-auto rounded-md bg-white text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm
+                  max-lg:mt-12 max-lg:w-[162px]
+                  max-sm:w-[180px]
+                  max-xs:w-[180px] max-xs:mt-[45px]">
+                  <li *ngFor="let item of notificacion2"
+                    (click)="seleccionarNotificacion(item, 'notificacion2')"
+                    class="text-gray-900 relative cursor-default select-none py-2 pl-3 pr-9 hover-dropdown max-xs:py-4">
+                    <div class="w-full">
+                      <span class="font-normal truncate inline-flex max-xs:text-3xl gap-x-2 items-center ">
+                        <svg *ngIf="item === 'Personalizar'"
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="16"
+                          viewBox="0 0 24 24">
+                          <path d="M15.137 3.945c-.644-.374-1.042-1.07-1.041-1.82v-.003c.001-1.172-.938-2.122-2.096-2.122s-2.097.95-2.097 2.122v.003c.001.751-.396 1.446-1.041 1.82-4.667 2.712-1.985 11.715-6.862 13.306v1.749h20v-1.749c-4.877-1.591-2.195-10.594-6.863-13.306zm-3.137-2.945c.552 0 1 .449 1 1 0 .552-.448 1-1 1s-1-.448-1-1c0-.551.448-1 1-1zm3 20c0 1.598-1.392 3-2.971 3s-3.029-1.402-3.029-3h6z"/>
+                        </svg>
+                        <svg
+                          *ngIf="item === 'Ninguna'"
+                          class="cursor-pointer"
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="16"
+                          viewBox="0 0 24 24">
+                          <path d="M22 17.251v1.749h-13.065l9.444-8.566c.565 2.995 1.013 5.966 3.621 6.817zm-9.971 6.749c1.578 0 2.971-1.402 2.971-3h-6c0 1.598 1.449 3 3.029 3zm10.971-19.802l-20.654 18.735-1.346-1.48 2.705-2.453h-1.705v-1.749c4.877-1.591 2.195-10.594 6.863-13.306.645-.374 1.041-1.069 1.04-1.82v-.003c0-1.172.939-2.122 2.097-2.122s2.097.95 2.097 2.122v.003c-.001.75.396 1.447 1.04 1.82 1.064.618 1.743 1.565 2.22 2.674l4.302-3.901 1.341 1.48zm-12-2.198c0 .552.448 1 1 1s1-.448 1-1c0-.551-.448-1-1-1s-1 .449-1 1z"/>
+                        </svg>
+                        {{item}}
+                      </span>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!--modal del programar notiifcacion personalizado 1-->
+        <div
+          *ngIf="showNotificaciones"
+          id="modal-component-container"
+          class="fixed inset-0 z-40">
+          <div
+            class="modal-flex-container flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0 xs:pb-60 max-xs:pb-[340px]"
+            >
+            <div class="modal-bg-container fixed inset-0 bg-gray-800 bg-opacity-[0.65]"></div>
+
+            <div class="modal-space-container hidden sm:inline-block sm:align-middle sm:h-screen"></div>
+
+            <div
+              class="
+              modal-container inline-block align-bottom bg-white rounded-lg
+              text-left overflow-hidden shadow-xl transform
+              transition-all w-full sm:my-8 sm:align-middle sm:max-w-sm xs:max-w-md">
+              <form
+                autocomplete="off"
+                [formGroup]="myformNotificacion"
+                (ngSubmit)="onSubmit(myformNotificacion)"
+                >
+                <div class="modal-wrapper bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                  <div class="modal-wrapper-flex sm:flex sm:items-start sm:justify-center">
+                    <div
+                      class="modal-content flex flex-col items-center w-full text-center mt-center mt-3 sm:mt-0 sm:text-left space-y-2 max-xs:space-y-4">
+                      <h3 class="text-lg text-gray-900 font-bold max-xs:text-3xl">Notificación</h3>
+                      <div class="flex">
+                        <div class="space-y-2 max-xs:space-y-4">
+                        </div>
+                        <div class="space-y-2 max-xs:space-y-4">
+                          <label class="text-gray-700 font-medium flex justify-start max-xs:text-3xl">Dia</label>
+                          <select
+                            id="dia"
+                            formControlName="dia"
+                            class="shadow border rounded w-32 py-2 px-3 text-gray-700 focus:outline-none mr-4 max-xs:w-[115px] max-xs:py-4 max-xs:px-6 max-xs:text-[14px]">
+                            <option value="Lunes">Lunes</option>
+                            <option value="Martes">Martes</option>
+                            <option value="Miércoles">Miércoles</option>
+                            <option value="Jueves">Jueves</option>
+                            <option value="Viernes">Viernes</option>
+                            <option value="Sábado">Sábado</option>
+                            <option value="Domingo">Domingo</option>
+                          </select>
+                        </div>
+                        <div class="space-y-2 xs:flex xs:flex-col max-xs:space-y-4 max-xs:flex max-xs:flex-col">
+                          <label class="text-gray-700 font-medium max-xs:text-3xl">Hora (hh:mm)</label>
+                          <input
+                            type="time"
+                            formControlName="hora"
+                            class="px-5 py-1 w-[135px] border-2 border-[#1c99beff] rounded-md focus:outline-none text-black max-xs:w-[115px] max-xs:py-3 max-xs:px-10 max-xs:text-[14px]"
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-actions bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                  <button
+                    (click)="closeNotificaciones(1)"
+                    type="button"
+                    class="
+                    w-full inline-flex
+                    justify-center
+                    rounded-md border border-transparent
+                    shadow-md
+                    px-4 py-2
+                    bg-white font-medium text-gray-700
+                    hover:bg-gray-50
+                    focus:outline-none
+                    focus:ring-offset-2
+                    focus:ring-blue-200
+                    sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm
+                    max-xs:text-3xl max-xs:px-12 max-xs:py-4">
+                    Cancelar
+                  </button>
+                  <button
+                    type="submit"
+                    class="
+                    w-full inline-flex
+                    justify-center
+                    rounded-md border border-transparent
+                    shadow-md
+                    px-4 py-2 mt-3
+                    bg-[#1c99beff] font-medium text-white
+                    hover:bg-[#1b6b86ff]
+                    focus:outline-none
+                    focus:ring-offset-2
+                    focus:ring-blue-200
+                    sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm
+                    max-xs:text-3xl max-xs:px-12 max-xs:py-4">
+                    Guardar
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!--modal del programar notiifcacion personalizado 2-->
+        <div
+          *ngIf="showNotificaciones2"
+          id="modal-component-container"
+          class="fixed inset-0 z-40">
+          <div
+            class="modal-flex-container flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0 xs:pb-60 max-xs:pb-[340px]"
+            >
+            <div class="modal-bg-container fixed inset-0 bg-gray-800 bg-opacity-[0.65]"></div>
+
+            <div class="modal-space-container hidden sm:inline-block sm:align-middle sm:h-screen"></div>
+
+            <div
+              class="
+              modal-container inline-block align-bottom bg-white rounded-lg
+              text-left overflow-hidden shadow-xl transform
+              transition-all w-full sm:my-8 sm:align-middle sm:max-w-sm xs:max-w-md">
+              <form
+                autocomplete="off"
+                [formGroup]="myformNotificacion2"
+                (ngSubmit)="onSubmit(myformNotificacion2)"
+                >
+                <div class="modal-wrapper bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                  <div class="modal-wrapper-flex sm:flex sm:items-start sm:justify-center">
+                    <div
+                      class="modal-content flex flex-col items-center w-full text-center mt-center mt-3 sm:mt-0 sm:text-left space-y-2 max-xs:space-y-4">
+                      <h3 class="text-lg text-gray-900 font-bold max-xs:text-3xl">Notificación</h3>
+                      <div class="flex">
+                        <div class="space-y-2 max-xs:space-y-4">
+                        </div>
+                        <div class="space-y-2 max-xs:space-y-4">
+                          <label class="text-gray-700 font-medium flex justify-start max-xs:text-3xl">Dia</label>
+                          <select
+                            id="dia"
+                            formControlName="dia"
+                            class="shadow border rounded w-32 py-2 px-3 text-gray-700 focus:outline-none mr-4 max-xs:w-[115px] max-xs:py-4 max-xs:px-6 max-xs:text-[14px]">
+                            <option value="Lunes">Lunes</option>
+                            <option value="Martes">Martes</option>
+                            <option value="Miércoles">Miércoles</option>
+                            <option value="Jueves">Jueves</option>
+                            <option value="Viernes">Viernes</option>
+                            <option value="Sábado">Sábado</option>
+                            <option value="Domingo">Domingo</option>
+                          </select>
+                        </div>
+                        <div class="space-y-2 xs:flex xs:flex-col max-xs:space-y-4 max-xs:flex max-xs:flex-col">
+                          <label class="text-gray-700 font-medium max-xs:text-3xl">Hora (hh:mm)</label>
+                          <input
+                            type="time"
+                            formControlName="hora"
+                            class="px-5 py-1 w-[135px] border-2 border-[#1c99beff] rounded-md focus:outline-none text-black max-xs:w-[115px] max-xs:py-3 max-xs:px-10 max-xs:text-[14px]"
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-actions bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                  <button
+                    (click)="closeNotificaciones(2)"
+                    type="button"
+                    class="
+                    w-full inline-flex
+                    justify-center
+                    rounded-md border border-transparent
+                    shadow-md
+                    px-4 py-2
+                    bg-white font-medium text-gray-700
+                    hover:bg-gray-50
+                    focus:outline-none
+                    focus:ring-offset-2
+                    focus:ring-blue-200
+                    sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm
+                    max-xs:text-3xl max-xs:px-12 max-xs:py-4">
+                    Cancelar
+                  </button>
+                  <button
+                    type="submit"
+                    class="
+                    w-full inline-flex
+                    justify-center
+                    rounded-md border border-transparent
+                    shadow-md
+                    px-4 py-2 mt-3
+                    bg-[#1c99beff] font-medium text-white
+                    hover:bg-[#1b6b86ff]
+                    focus:outline-none
+                    focus:ring-offset-2
+                    focus:ring-blue-200
+                    sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm
+                    max-xs:text-3xl max-xs:px-12 max-xs:py-4">
+                    Guardar
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <table-list [horario]="horarioActualizado"></table-list>
+      </div>
+    </div>
+
+
+    <!--loading del programacion de horario-->
+    <div
+      *ngIf="isLoading"
+      class="fixed inset-0 z-40">
+      <!--loading-flex-container-->
+      <div class="flex items-end justify-center min-h-screen text-center xss:block xss:pt-[29px]">
+        <!--loading-bg-container-->
+        <div class="fixed inset-0 bg-gray-800 bg-opacity-[0.50]"></div>
+        <!--loading-space-container-->
+        <div class="hidden xss:inline-block xss:align-middle xss:h-screen"></div>
+        <!--loading-container -->
+        <div class="inline-block transform transition-all xss:max-w-[100px]">
+          <!--loading-wrapper-->
+          <div class="px-2 py-2 xss:p-3">
+            <div class="loader"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <shared-footer></shared-footer>
+  </div>
+</div>
+
+

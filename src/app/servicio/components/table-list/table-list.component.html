@@ -1,0 +1,26 @@
+<div class="w-full mx-auto">
+  <div class="shadow-md">
+    <table class="w-full mt-10">
+      <thead>
+        <tr class="bg_azul_azulado_ecoHuancan">
+          <th class="px-4 py-4 text-white border-r-2 border-white max-xs:text-3xl">DÍA</th>
+          <th class="px-4 py-4 text-white border-r-2 border-white max-xs:text-3xl">HORA</th>
+          <th class="px-4 py-4 text-white border-r-2 border-white max-xs:text-3xl">RECORRIDO</th>
+          <!-- <th class="px-4 py-4 text-white border-r-2 border-white">REFERENCIA DE PUNTO DE RECOLECCIÓN</th> -->
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of horario; let i=index"
+          [ngClass]="{'bg-[#9ad2e4]': i % 2 !== 0}"
+          class="text-center">
+          <ng-container *ngIf="i===0 || horario[i-1].horariopunto_dia !== item.horariopunto_dia">
+            <td [attr.rowspan]="item.rowspan" [ngClass]="{'bg-[#1c99beff] text-white': (item.cambioDiaIndex ?? 0) % 2 === 0, 'bg-white': (item.cambioDiaIndex ?? 0) % 2 !== 0}" class="px-2 py-4 w-[8%] border-r-2 border-white font-bold uppercase max-xs:text-3xl">{{item.horariopunto_dia || ''}}</td>
+          </ng-container>
+          <td class="px-2 py-4 w-[9%] border-r-2 border-white max-xs:text-2xl">{{item.horariopunto_hora_inicio}}</td>
+          <td class="px-2 py-4 break-words border-r-2 border-white max-w-xl max-2xl:max-w-md max-xl:max-w-xs max-lg:max-w-xs max-md:max-w-none max-xs:text-3xl">{{item.horariopunto_recorrido}}</td>
+          <!-- <td class="px-2 py-4 break-words max-w-xl max-2xl:max-w-md max-xl:max-w-xs max-lg:max-w-xs max-md:max-w-none">{{item.horariopunto_referencia_punto}}</td> -->
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

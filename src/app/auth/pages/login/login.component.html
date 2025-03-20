@@ -1,0 +1,107 @@
+<div class="relative top-0 min-h-screen w-full overflow-x-hidden max-xs:overflow-y-hidden">
+  <div>
+    <shared-header></shared-header>
+  </div>
+  <div class="w-full h-screen pt-[80px] flex items-center max-lg:justify-center">
+    <img
+      src="assets/img/portada.jpg"
+      alt="portada"
+      class="w-full h-full object-cover pointer-events-none
+    ">
+
+    <div class="absolute inset-0 bg-black opacity-50 pointer-events-none"></div>
+
+
+    <div class="absolute ml-48 py-4 pr-20 border-b-[10px] max-3xl:ml-20 max-2xl:ml-20 max-xl:pr-10 max-sm:hidden max-lg:hidden">
+      <span class="font-black text-8xl text-white max-xlm:text-7xl max-xls:text-5xl">Bienvenido</span>
+    </div>
+
+    <div class="
+    absolute right-48 border-2 w-[500px] h-[510px] rounded-[30px]
+    max-3xl:right-20
+    max-lg:right-auto
+    max-sm:w-[470px] max-sm:h-[480px]
+    max-xs:h-full max-xs:border-0 max-xs:hidden">
+    </div>
+
+    <div class="absolute right-[217px] p-2 bg-[#1c99beff] w-[450px] h-[480px] 2xl:max-w-[1536px] rounded-[15px] opacity-60 flex justify-center items-center
+      max-3xl:right-[105px]
+      max-lg:right-auto
+      max-sm:w-[430px] max-sm:h-[455px]
+      max-xs:h-full max-xs:w-full max-xs:p-0 max-xs:top-40 max-xs:rounded-none">
+    </div>
+
+    <div class="absolute right-[190px] p-2 w-[500px] h-[500px] rounded-[15px] flex justify-center items-center
+      max-3xl:right-[80px]
+      max-lg:right-auto
+      max-sm:w-[460px] max-sm:h-[455px]
+      max-xs:w-full max-xs:h-auto max-xs:p-0">
+      <form
+        autocomplete="off"
+        [formGroup]="myform"
+        (ngSubmit)="login()"
+        class="w-full px-10 py-5"
+        >
+        <h1
+          class="w-auto flex justify-center font-extrabold text-white max-sm:text-4xl max-xs:text-7xl max-xsm:text-6xl">
+          Iniciar sesión
+        </h1>
+        <div class="space-y-1 mt-6 max-xs:space-y-5 max-xs:mt-8">
+          <h6 class="w-full text-white max-xs:text-4xl max-xsm:text-3xl">DNI</h6>
+          <input
+            type="text"
+            formControlName="dni_usuario"
+            maxlength="8"
+            (keypress)="validatorInputNumber($event)"
+            class="w-full px-4 py-2 rounded-[4px] text-lg focus:outline-none max-xs:text-[20px] max-xs:p-7 max-xsm:text-4xl"
+            [class.input-error]="isValidField('dni_usuario')">
+        </div>
+        <span  class="text-red-200 text-sm px-2 max-xs:text-3xl" *ngIf="isValidField('dni_usuario')">
+          {{getFieldError('dni_usuario')}}
+        </span>
+        <div class="space-y-1 mt-4 max-xs:space-y-5 max-xs:mt-8">
+          <h6 class="w-full text-white max-xs:text-4xl max-xsm:text-3xl">Contraseña</h6>
+          <div class="flex w-full h-11 bg-white px-4 gap-2 focus:outline-none border-white rounded-[4px] text-lg max-xs:h-[52px] max-xs:text-[20px] max-xs:px-7 max-xsm:text-3xl"
+            [ngClass]="{
+                'input-error-contrasena': isValidField('contrasena'),
+                'max-xs:h-[19px]': isValidField('contrasena'),
+              }"
+            >
+            <input
+            [type]="mostrarcontrasena ? 'text':'password'"
+            formControlName="contrasena"
+            class="w-full py-2 rounded-[4px] text-lg focus:outline-none max-xs:text-[20px] max-xs:py-7 max-xsm:text-4xl"
+            >
+            <span
+              (click)="toggleMostrarContrasena()"
+              class="h-full flex justify-center items-center">
+              <svg *ngIf="!mostrarcontrasena" class="w-8 h-8 fill-[#3ab349ff] max-xs:w-20 max-xs:h-20" clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m11.998 5c-4.078 0-7.742 3.093-9.853 6.483-.096.159-.145.338-.145.517s.048.358.144.517c2.112 3.39 5.776 6.483 9.854 6.483 4.143 0 7.796-3.09 9.864-6.493.092-.156.138-.332.138-.507s-.046-.351-.138-.507c-2.068-3.403-5.721-6.493-9.864-6.493zm.002 3c2.208 0 4 1.792 4 4s-1.792 4-4 4-4-1.792-4-4 1.792-4 4-4zm0 1.5c1.38 0 2.5 1.12 2.5 2.5s-1.12 2.5-2.5 2.5-2.5-1.12-2.5-2.5 1.12-2.5 2.5-2.5z" fill-rule="nonzero"/></svg>
+              <svg *ngIf="mostrarcontrasena" class="w-8 h-8 fill-[#3ab349ff] max-xs:w-20 max-xs:h-20" clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m17.069 6.546 2.684-2.359c.143-.125.32-.187.497-.187.418 0 .75.34.75.75 0 .207-.086.414-.254.562l-16.5 14.501c-.142.126-.319.187-.496.187-.415 0-.75-.334-.75-.75 0-.207.086-.414.253-.562l2.438-2.143c-1.414-1.132-2.627-2.552-3.547-4.028-.096-.159-.144-.338-.144-.517s.049-.358.145-.517c2.111-3.39 5.775-6.483 9.853-6.483 1.815 0 3.536.593 5.071 1.546zm2.318 1.83c.967.943 1.804 2.013 2.475 3.117.092.156.138.332.138.507s-.046.351-.138.507c-2.068 3.403-5.721 6.493-9.864 6.493-1.298 0-2.553-.313-3.73-.849l2.624-2.307c.352.102.724.156 1.108.156 2.208 0 4-1.792 4-4 0-.206-.016-.408-.046-.606zm-4.932.467c-.678-.528-1.53-.843-2.455-.843-2.208 0-4 1.792-4 4 0 .741.202 1.435.553 2.03l1.16-1.019c-.137-.31-.213-.651-.213-1.011 0-1.38 1.12-2.5 2.5-2.5.474 0 .918.132 1.296.362z" fill-rule="nonzero"/></svg>
+            </span>
+          </div>
+          <span class="text-red-200 text-sm px-2 max-xs:text-3xl" *ngIf="isValidField('contrasena')">
+            {{getFieldErrorCaracteres('contrasena')}}
+          </span>
+        </div>
+
+        <a
+          [routerLink]="['/autenticacion/recuperar_contrasena']"
+          class="w-full flex justify-center font-semibold text-[#00ff9d] hover:underline mt-6 max-xs:text-4xl max-xs:mt-12 max-xsm:text-3xl cursor-pointer">
+          ¿Olvidaste tu contraseña?
+        </a>
+
+        <div class="w-full flex justify-center mt-6 max-xs:mt-12">
+          <button
+            type="submit"
+            class="px-10 py-2 bg_verde_esmeralda_ecoHuancan text-white font-semibold rounded-md text-lg max-xs:text-4xl max-xs:py-6 max-xs:px-20 max-xs:rounded-xl">
+            Ingresar
+          </button>
+        </div>
+        <div class="flex justify-center space-x-2 mt-6 max-xs:mt-12 max-xsl:flex-col max-xs:gap-y-4">
+          <p class="text-white font-normal text-center max-xs:text-4xl max-xsm:text-3xl">¿Aún no tienes cuenta?</p>
+          <a [routerLink]="['/autenticacion/registrar']" class="text-[#00ff9d] font-semibold hover:underline text-center max-xs:text-4xl max-xsm:text-3xl">crear cuenta</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

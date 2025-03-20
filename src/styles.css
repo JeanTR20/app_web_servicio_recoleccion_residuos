@@ -1,0 +1,187 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import 'ngx-toastr/toastr';
+
+:root {
+  /* Color styles */
+  --color_1: #2f2f2f;
+  --color_2: #1a1a1a;
+  --color_3: #274A3D;
+  --color_4: #00D084;
+  --color_5: #92F0CE;
+  --color_6: #00A166;
+  --color_7: #E7EBE8;
+  --color_8: #008A54;
+  --color_9: #166534;
+  --color_10: #160b75;
+  --color_11: #8fd4bb;
+  --color_12:#cdeee1;
+  --color_13: #87cadf;
+
+  /* Color de la municipalidad */
+  --azul_azulado_ecoHuancan: #1b6b86ff;
+  --azul_crayola_ecoHuancan: #1c99beff;
+  --verde_esmeralda_ecoHuancan: #3ab349ff;
+  --rojo_claro_ecoHuancan: #ff0000;
+  --verde_oscuro: #008A54;
+  --verde_claro: #00ff9d;
+  --color: #166534;
+
+}
+html,body{
+  height: 100%;
+}
+h1,.h1 {
+  font-size: 38px;
+}
+h2,.h2 {
+  font-size: 30px;
+}
+h3,.h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 20px;
+}
+h5 {
+  font-size: 18px;
+}
+
+p {
+  font-size: 16px;
+}
+.bodyText {
+  line-height: 217.9%;
+}
+
+* {
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  box-sizing: border-box;
+}
+
+/* * {
+  font-family: "Montserrat", sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+} */
+
+.color1 {
+  background-color: var(--color_1);
+}
+.color2 {
+  background-color: var(--color_2);
+}
+.color3 {
+  background-color: var(--color_3);
+}
+.color4 {
+  background-color: var(--color_4);
+}
+.color5 {
+  background-color: var(--color_5);
+}
+.color6 {
+  background-color: var(--color_6);
+}
+.color7 {
+  background-color: var(--color_7);
+}
+.color8 {
+  background-color: var(--color_8);
+}
+.color9 {
+  background-color: var(--color_9);
+}
+
+/* colores de la municipalidd de huancan */
+
+.bg_azul_azulado_ecoHuancan {
+  background-color: var(--azul_azulado_ecoHuancan);
+}
+
+.bg_azul_crayola_ecoHuancan {
+  background-color: var(--azul_crayola_ecoHuancan);
+}
+
+.bg_verde_esmeralda_ecoHuancan {
+  background-color: var(--verde_esmeralda_ecoHuancan);
+}
+
+.bg_verde_oscuro {
+  background-color: var(--verde_oscuro);
+}
+
+.text_azul_azulado_ecoHuancan {
+  color: var(--azul_azulado_ecoHuancan);
+}
+
+.text_azul_crayola_ecoHuancan {
+  color: var(--azul_crayola_ecoHuancan);
+}
+
+.text_verde_esmeralda_ecoHuancan {
+  color: var(--verde_esmeralda_ecoHuancan);
+}
+
+.text_verde_oscuro {
+  color: var(--verde_oscuro);
+}
+
+.textcolor1 {
+  color: var(--color_4);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* html {
+  font-size: 62.5%;
+} */
+
+@media only screen and (max-width: 30em) {
+  html {
+    font-size: 50%;
+  }
+}
+
+a,
+a:link,
+a:visited {
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+@media only screen and (max-width: 30em) {
+  html {
+    font-size: 50%;
+  }
+}
+
+a,
+a:link,
+a:visited {
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}

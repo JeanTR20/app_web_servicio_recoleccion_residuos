@@ -1,0 +1,236 @@
+<div>
+  <div>
+    <shared-header></shared-header>
+  </div>
+  <div class="w-full h-full flex justify-center">
+    <div *ngIf="(authStatus() === 'authenticated' && user()?.rol_nombre === 'Residente') || authStatus() === 'notAuthenticated'"
+      class="px-20 py-10 space-y-8 pt-[110px] 2xl:max-w-[1536px] max-xs:px-10 max-xs:py-10 max-xs:pt-[110px]">
+      <div class="space-y-4">
+        <h3 class="py-2 text_azul_crayola_ecoHuancan font-bold max-xs:text-4xl max-xs:leading-relaxed">REPORTE DE INCIDENCIA DE RESIDUOS SÓLIDOS</h3>
+        <p>Inicia sesión para poder registrar un reporte de incidencia de residuos sólidos en tu área.
+        </p>
+      </div>
+      <form
+        autocomplete="off"
+        [formGroup]="myform"
+        (ngSubmit)="registrarIncidenciaReporte()"
+        class="space-y-10 2xl:max-w-[800px]"
+        >
+        <div>
+          <h3 class="py-2 text_azul_crayola_ecoHuancan font-bold max-xs:text-4xl max-xs:leading-relaxed">SUBIR FOTO</h3>
+          <p>Adjunta una fotografía del área afectada.</p>
+          <div class="col-span-full">
+            <div class="h-48 mt-2 flex justify-center rounded-lg border-2 border-[#1b6b86ff] border-dashed px-6 py-10 max-xs:mt-12 max-xs:h-72">
+              <div class="text-center self-center">
+                <svg class="mx-auto h-12 w-12 text-gray-300 max-xs:h-20 max-xs:w-20 fill-black" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z" clip-rule="evenodd" />
+                </svg>
+                <div class="mt-4 flex text-sm text-gray-600">
+                  <label for="file-upload" class="relative cursor-pointer rounded-md bg-white font-semibold text_azul_azulado_ecoHuancan focus-within:outline-none focus-within:ring- focus-within:ring-offset-2 hover:text-[#00A166]">
+                    <span class="max-xs:text-3xl">Subir una foto</span>
+                    <input
+                      id="file-upload"
+                      name="file-upload"
+                      type="file"
+                      class="sr-only"
+                      accept="image/png, image/jpeg, image/jpg"
+                      (change)="archivoSeleccionado($event)">
+                  </label>
+                  <p class="pl-1 max-xs:text-3xl">o arrastrar y soltar</p>
+                </div>
+                <p class="text-xs leading-5 text-gray-600 max-xs:text-2xl">PNG, JPG y JPEG hasta 10MB</p>
+                <div class="mt-1 text-sm text-gray-500" *ngIf="fileName">{{ fileName }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="space-y-4">
+          <h3 class="py-2 text_azul_crayola_ecoHuancan font-bold max-xs:text-4xl max-xs:leading-relaxed">DESCRIPCIÓN</h3>
+          <p>Describe la condición en la que encuentra la basura</p>
+          <!-- <p class="font-medium">Por ejemplo: "Bolsas de basura rotas y su contenido esparcido en la acera" o "Muebles viejos abandonados en la calle".</p> -->
+          <div class="col-span-full">
+            <div class="mt-4">
+              <textarea
+                id="descripcion"
+                name="descripcion"
+                rows="2"
+                formControlName="descripcion"
+                class="block w-full rounded-md border-0 px-2 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-[#1b6b86ff] placeholder:text-gray-400 focus:outline-none text-md sm:leading-6
+                max-xs:text-3xl max-xs:mt-12 max-xs:p-4
+                ">
+              </textarea>
+            </div>
+          </div>
+        </div>
+        <div class="space-y-4">
+          <label for="first-name" class="block py-2 text-2xl text_azul_crayola_ecoHuancan leading-6 text-gray-900 font-bold max-xs:text-4xl max-xs:leading-relaxed">UBICACIÓN</label>
+          <p> Indica la dirección exacta donde has encontrado las basuras.</p>
+          <div class="mt-4 max-xs:mt-12">
+            <input
+              type="text"
+              formControlName="direccion"
+              placeholder="Dirección de la calle"
+              class="appearance-none block w-2/3 rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm focus:outline-none ring-1 ring-[#1b6b86ff] placeholder:text-gray-500 text-md sm:leading-6
+              max-xs:text-3xl max-xs:p-4
+              ">
+          </div>
+          <div class="mt-2">
+            <input
+              type="text"
+              formControlName="referencia_calle"
+              placeholder="Referencia de la calle"
+              class="appearance-none block w-2/3 rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm focus:outline-none ring-1 ring-[#1b6b86ff] placeholder:text-gray-500 text-md sm:leading-6
+              max-xs:text-3xl max-xs:p-4
+              ">
+          </div>
+        </div>
+
+        <div class="w-full flex flex-col justify-center items-center"
+          >
+          <ngx-recaptcha2 #captchaElem
+          [siteKey]="siteKey"
+          (success)="handleSuccess($event)"
+          formControlName="recaptcha">
+          </ngx-recaptcha2>
+        </div>
+        <!-- <div class="absolute top-[1000px] ml-[245px] h-[83px] w-[308px] border-2 border-red-500 pointer-events-none"
+        *ngIf="myform.controls['recaptcha'].errors && myform.controls['recaptcha'].touched"
+        >
+        </div> -->
+        <div class="w-full flex justify-center mt-10">
+          <button
+            type="submit"
+            class="px-16 py-2.5 bg_azul_crayola_ecoHuancan rounded-md text-white font-medium text-lg max-xs:text-2xl max-xl:py-4">Enviar
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!--reporte de incidencia del personal-->
+    <div *ngIf="authStatus() === 'authenticated' && user()?.rol_nombre === 'Recolector'"
+      class="px-20 py-10 space-y-10 pt-[110px] 2xl:max-w-[1536px] max-xs:px-10 max-xs:py-10 max-xs:pt-[110px]">
+      <div class="space-y-4">
+        <h3 class="py-2 text_azul_crayola_ecoHuancan font-bold max-xs:text-4xl max-xs:leading-relaxed">REPORTE DE INCIDENCIA TÉCNICA Y OPERATIVA PARA PERSONAL DE RECOLECCIÓN</h3>
+        <p>Este formulario es para el uso del personal de recolección de residuos sólidos. Aquí puedes informar cualquier fallo técnico en los vehículos, cambios de ruta necesarios, o cualquier otro inconveniente que pueda retrasar o afectar la recolección de residuos sólidos.
+        </p>
+      </div>
+      <form
+        autocomplete="off"
+        [formGroup]="myform"
+        (ngSubmit)="registrarIncidenciaReporte()"
+        class="space-y-10 2xl:max-w-[800px]"
+        >
+        <div>
+          <h3 class="py-2 text_azul_crayola_ecoHuancan font-bold max-xs:text-4xl max-xs:leading-relaxed">SUBIR FOTO</h3>
+          <p>adjunta una fotografía del problema o del lugar del incidente.</p>
+          <div class="col-span-full">
+            <div class="mt-2 flex justify-center rounded-lg border-2 border-[#1b6b86ff] border-dashed px-6 py-10 max-xs:mt-12 max-xs:h-72">
+              <div class="text-center self-center">
+                <svg class="mx-auto h-12 w-12 text-gray-300 max-xs:h-20 max-xs:w-20 fill-black" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z" clip-rule="evenodd" />
+                </svg>
+                <div class="mt-4 flex text-sm text-gray-600">
+                  <label for="file-upload" class="relative cursor-pointer rounded-md bg-white font-semibold textcolor1 focus-within:outline-none focus-within:ring- focus-within:ring-offset-2 hover:text-[#00A166]">
+                    <span class="text_azul_crayola_ecoHuancan max-xs:text-3xl">Subir una foto</span>
+                    <input
+                      id="file-upload"
+                      name="file-upload"
+                      type="file"
+                      class="sr-only"
+                      accept="image/png, image/jpeg, image/jpg"
+                      (change)="archivoSeleccionado($event)">
+                  </label>
+                  <p class="pl-1 max-xs:text-3xl">o arrastrar y soltar</p>
+                </div>
+                <p class="text-xs leading-5 text-gray-600 max-xs:text-2xl">PNG, JPG, JPEG hasta 10MB</p>
+                <div class="mt-1 text-sm text-gray-500" *ngIf="fileName">{{ fileName }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="space-y-4">
+          <h3 class="py-2 text_azul_crayola_ecoHuancan font-bold max-xs:text-4xl max-xs:leading-relaxed">DESCRIPCIÓN DEL PROBLEMA</h3>
+          <p>Por favor, describe con detalle el problema técnico o operativo</p>
+          <!-- <p class="font-medium">Ejemplo: "El camión de recolección presenta una falla en el sistema hidráulico y no puede levantar los contenedores" o "La ruta habitual está bloqueada por obras de construcción y se necesita una ruta alternativa".</p> -->
+          <div class="col-span-full">
+            <div class="mt-4">
+              <textarea
+                id="about"
+                name="about"
+                rows="3"
+                formControlName="descripcion"
+                class="block w-full rounded-md border-0 px-2 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-[#1b6b86ff] placeholder:text-gray-400 focus:outline-none text-md sm:leading-6
+                max-xs:text-3xl max-xs:mt-12 max-xs:p-4
+                ">
+              </textarea>
+            </div>
+          </div>
+        </div>
+        <div class="space-y-4">
+          <label for="first-name" class="block py-2 text-2xl text_azul_crayola_ecoHuancan leading-6 font-bold max-xs:text-4xl max-xs:leading-relaxed">UBICACIÓN DEL INCIDENTE</label>
+          <p> Indica la ubicación exacta donde se presentó el problema. Incluye calle, número y cualquier referencia adicional.</p>
+          <div class="mt-4 max-xs:mt-12">
+            <input
+              type="text"
+              formControlName="direccion"
+              placeholder="Dirección de la calle"
+              class="appearance-none block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm focus:outline-none ring-1 ring-[#1b6b86ff] placeholder:text-gray-500 text-md sm:leading-6
+              max-xs:text-3xl max-xs:p-4
+              ">
+          </div>
+          <div class="mt-2">
+            <input
+              type="text"
+              formControlName="referencia_calle"
+              placeholder="Referencia de la calle"
+              class="appearance-none block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm focus:outline-none ring-1 ring-[#1b6b86ff] placeholder:text-gray-500 text-md sm:leading-6
+              max-xs:text-3xl max-xs:p-4
+              ">
+          </div>
+        </div>
+        <div class="w-full flex flex-col justify-center items-center"
+          >
+          <ngx-recaptcha2 #captchaElem
+            [siteKey]="siteKey"
+            (success)="handleSuccess($event)"
+            formControlName="recaptcha">
+          </ngx-recaptcha2>
+        </div>
+        <!-- <div class="absolute top-[1441px] ml-[245px] h-[83px] w-[308px] border-2 border-red-500 pointer-events-none"
+        *ngIf="myform.controls['recaptcha'].errors && myform.controls['recaptcha'].touched">
+        </div> -->
+        <div class="w-full flex justify-center mt-10">
+          <button
+            type="submit"
+            class="px-16 py-2.5 bg_azul_crayola_ecoHuancan rounded-md text-white font-medium text-lg max-xs:text-2xl max-xl:py-4">Enviar
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!--loading del programacion de horario-->
+    <div
+      *ngIf="isLoading"
+      class="fixed inset-0 z-40">
+      <!--loading-flex-container-->
+      <div class="flex items-end justify-center min-h-screen text-center xss:block xss:pt-[29px]">
+        <!--loading-bg-container-->
+        <div class="fixed inset-0 bg-gray-800 bg-opacity-[0.50]"></div>
+        <!--loading-space-container-->
+        <div class="hidden xss:inline-block xss:align-middle xss:h-screen"></div>
+        <!--loading-container -->
+        <div class="inline-block transform transition-all xss:max-w-[100px]">
+          <!--loading-wrapper-->
+          <div class="px-2 py-2 xss:p-3">
+            <div class="loader"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <shared-footer></shared-footer>
+  </div>
+</div>
+
+

@@ -1,0 +1,317 @@
+<div class="flex-1 pl-[330px] pr-8 py-10 text-white w-full h-full overflow-x-hidden">
+  <div class="container mx-auto">
+    <h1 class="text-4xl font-bold mb-4 text_azul_azulado_ecoHuancan">RESIDENTE</h1>
+  </div>
+  <div class="flex w-full py-4">
+    <div class="flex justify-center w-full">
+      <div class="flex justify-center px-5 w-[50%] py-1 mr-40 border border-[#1b6b86ff] rounded-full text-black placeholder-gray-500 space-x-4">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="w-11 h-10 p-2 fill-black"
+          viewBox="0 0 24 24">
+          <path d="M23.809 21.646l-6.205-6.205c1.167-1.605 1.857-3.579 1.857-5.711 0-5.365-4.365-9.73-9.731-9.73-5.365 0-9.73 4.365-9.73 9.73 0 5.366 4.365 9.73 9.73 9.73 2.034 0 3.923-.627 5.487-1.698l6.238 6.238 2.354-2.354zm-20.955-11.916c0-3.792 3.085-6.877 6.877-6.877s6.877 3.085 6.877 6.877-3.085 6.877-6.877 6.877c-3.793 0-6.877-3.085-6.877-6.877z"/>
+        </svg>
+        <!--barra de busqueda-->
+        <input
+          type="text"
+          [(ngModel)]="textBusqueda"
+          placeholder="Buscar por DNI o nombre de usuario"
+          class="focus:outline-none w-full"
+        >
+        <!--borrar texto-->
+        <svg
+          (click)="borrarTexto()"
+          clip-rule="evenodd"
+          fill-rule="evenodd"
+          stroke-linejoin="round"
+          stroke-miterlimit="2"
+          viewBox="0 0 24 24"
+          class="w-11 h-10 p-2 cursor-pointer hover:rounded-full hover:bg-gray-300 hover:stroke-white"
+          xmlns="http://www.w3.org/2000/svg">
+          <path stroke="black" stroke-width="2" d="m12 10.93 5.719-5.72c.146-.146.339-.219.531-.219.404 0 .75.324.75.749 0 .193-.073.385-.219.532l-5.72 5.719 5.719 5.719c.147.147.22.339.22.531 0 .427-.349.75-.75.75-.192 0-.385-.073-.531-.219l-5.719-5.719-5.719 5.719c-.146.146-.339.219-.531.219-.401 0-.75-.323-.75-.75 0-.192.073-.384.22-.531l5.719-5.719-5.72-5.719c-.146-.147-.219-.339-.219-.532 0-.425.346-.749.75-.749.192 0 .385.073.531.219z"/>
+        </svg>
+        <!--boton buscar-->
+        <svg
+          (click)="buscarResidente()"
+          xmlns="http://www.w3.org/2000/svg"
+          class="w-[46px] h-10 sm:w-[46px] sm:h-10 p-2 bg-[#1b6b86ff] hover:bg-[#1c99beff] cursor-pointer rounded-full fill-white"
+          viewBox="0 0 24 24">
+          <path stroke="white" stroke-width="2" d="M23.809 21.646l-6.205-6.205c1.167-1.605 1.857-3.579 1.857-5.711 0-5.365-4.365-9.73-9.731-9.73-5.365 0-9.73 4.365-9.73 9.73 0 5.366 4.365 9.73 9.73 9.73 2.034 0 3.923-.627 5.487-1.698l6.238 6.238 2.354-2.354zm-20.955-11.916c0-3.792 3.085-6.877 6.877-6.877s6.877 3.085 6.877 6.877-3.085 6.877-6.877 6.877c-3.793 0-6.877-3.085-6.877-6.877z"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+  <div class="w-full">
+    <div class="shadow-lg">
+      <table class="min-w-full">
+        <thead>
+          <tr class="bg_azul_azulado_ecoHuancan text-white text-center align-middle">
+            <th class="px-2 py-4">DNI</th>
+            <th class="px-2 py-4">NOMBRE DE USUARIO</th>
+            <th class="px-2 py-4">NRO. CELULAR</th>
+            <th class="px-2 py-4">CONTRASEÑA</th>
+            <th class="px-2 py-4">ACCIÓN</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of residente; let i=index"
+            [ngClass]="{'bg-gray-100': i % 2}"
+            class="text-center align-middle">
+            <td class="px-2 py-2 text-black">{{item.usuario_carnet_identidad}}</td>
+            <td class="px-2 py-2 text-black break-words max-w-xs">{{item.usuario_nombre_usuario}}</td>
+            <td class="px-2 py-2 text-black break-words max-w-xs">{{item.usuario_telefono}}</td>
+            <td class="px-2 py-2 text-black">{{item.usuario_contrasena}}</td>
+            <td class="flex px-2 py-2 space-x-4 items-center justify-center">
+              <!--Editar-->
+              <svg
+                (click)="openEditar(item.usuario_id)"
+                clip-rule="evenodd"
+                fill-rule="evenodd"
+                stroke-linejoin="round"
+                stroke-miterlimit="2"
+                viewBox="0 0 24 24"
+                class="w-12 h-12 fill-[#1c99beff]  border border-[#1c99beff] rounded-md p-2 hover:bg-[#1c99beff] hover:fill-[#ffffff] cursor-pointer"
+                xmlns="http://www.w3.org/2000/svg">
+                <path d="m4.481 15.659c-1.334 3.916-1.48 4.232-1.48 4.587 0 .528.46.749.749.749.352 0 .668-.137 4.574-1.492zm1.06-1.061 3.846 3.846 11.321-11.311c.195-.195.293-.45.293-.707 0-.255-.098-.51-.293-.706-.692-.691-1.742-1.74-2.435-2.432-.195-.195-.451-.293-.707-.293-.254 0-.51.098-.706.293z" fill-rule="nonzero"/>
+              </svg>
+              <!--Eliminar-->
+              <svg
+                (click)="openDarBaja(item.usuario_id)"
+                clip-rule="evenodd"
+                fill-rule="evenodd"
+                stroke-linejoin="round"
+                stroke-miterlimit="2"
+                viewBox="0 0 24 24"
+                class="w-12 h-12 fill-[#ff0000] border border-[#ff0000] rounded-md p-2 hover:border-2 hover:border-[#ff0000] hover:bg-[#ff0000] hover:fill-[#ffffff] cursor-pointer"
+                xmlns="http://www.w3.org/2000/svg">
+                <path d="m20.015 6.506h-16v14.423c0 .591.448 1.071 1 1.071h14c.552 0 1-.48 1-1.071 0-3.905 0-14.423 0-14.423zm-5.75 2.494c.414 0 .75.336.75.75v8.5c0 .414-.336.75-.75.75s-.75-.336-.75-.75v-8.5c0-.414.336-.75.75-.75zm-4.5 0c.414 0 .75.336.75.75v8.5c0 .414-.336.75-.75.75s-.75-.336-.75-.75v-8.5c0-.414.336-.75.75-.75zm-.75-5v-1c0-.535.474-1 1-1h4c.526 0 1 .465 1 1v1h5.254c.412 0 .746.335.746.747s-.334.747-.746.747h-16.507c-.413 0-.747-.335-.747-.747s.334-.747.747-.747zm4.5 0v-.5h-3v.5z" fill-rule="nonzero"/>
+              </svg>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!--modal del editar un Residente-->
+  <div
+    *ngIf="showEditar"
+    id="modal-component-container"
+    class="fixed inset-0 z-40 pt-[46px]">
+    <div
+      class="modal-flex-container flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0"
+      >
+      <div class="modal-bg-container fixed inset-0 bg-gray-800 bg-opacity-[0.65]"></div>
+
+      <div class="modal-space-container hidden sm:inline-block sm:align-middle sm:h-screen"></div>
+
+      <div
+        class="
+        modal-container
+        inline-block
+        align-bottom
+        bg-white
+        rounded-lg
+        text-left
+        overflow-hidden
+        shadow-xl
+        transform
+        transition-all
+        w-full
+        sm:my-8
+        sm:align-middle
+        sm:max-w-2xl">
+        <form
+          autocomplete="off"
+          [formGroup]="myformResidente"
+          (ngSubmit)="idResidenteEditar != null ? editarresidente(idResidenteEditar) : null"
+          >
+          <div class="modal-wrapper bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+            <div class="modal-wrapper-flex sm:flex sm:items-start sm:justify-center">
+
+              <div
+                class="modal-content w-full text-center mt-center mt-3 sm:mt-0 sm:text-left space-y-5">
+                <h3 class="text-lg text-gray-900 font-bold">Editar</h3>
+                <div class="flex space-x-2">
+                  <label class="text-gray-400 font-medium flex justify-start text-lg">ID :</label>
+                  <p
+                    class="text-gray-400 text-lg">{{idResidenteEditar}}</p>
+                </div>
+                <div class="flex space-x-4">
+                  <div class="space-y-2">
+                    <label class="text-gray-700 font-medium flex justify-start">Carnet Identidad</label>
+                    <input
+                      type="text"
+                      formControlName="carnet_identidad"
+                      class="px-3 py-2 w-full border-2 border-[#1b6b86ff] rounded-md focus:outline-none text-black"
+                      maxlength="8"
+                      (keypress)="ValidarInputNumber($event)"
+                    >
+                  </div>
+                </div>
+                <div>
+                  <div class="space-y-2">
+                    <label class="text-gray-700 font-medium flex justify-start">Nombre Usuario</label>
+                    <input
+                      type="text"
+                      formControlName="nombre_usuario"
+                      class="px-3 py-2 w-[197px] border-2 border-[#1b6b86ff] rounded-md focus:outline-none text-black"
+                    >
+                  </div>
+                </div>
+                <div class="flex space-x-4">
+                  <div class="space-y-2">
+                    <label class="text-gray-700 font-medium flex justify-start">Teléfono</label>
+                    <input
+                      type="text"
+                      formControlName="telefono"
+                      class="px-3 py-2 w-[197px] border-2 border-[#1b6b86ff] rounded-md focus:outline-none text-black"
+                      maxlength="9"
+                      (keypress)="ValidarInputNumber($event)"
+                    >
+                  </div>
+                </div>
+                <div>
+                  <div class="space-y-2">
+                    <label class="text-gray-400 font-medium flex justify-start">Contraseña</label>
+                    <p
+                      class="text-gray-400">{{contrasenaResidenteEditar}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-actions bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+            <button
+              (click)="closeEditar()"
+              type="button"
+              class="
+              w-full inline-flex
+              justify-center
+              rounded-md border border-transparent
+              shadow-md
+              px-4 py-2
+              bg-white font-medium text-gray-700
+              hover:bg-gray-50
+              focus:outline-none
+              focus:ring-offset-2
+              focus:ring-blue-200
+              sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+              Cancelar
+            </button>
+            <button
+              type="submit"
+              class="
+              w-full inline-flex
+              justify-center
+              rounded-md border border-transparent
+              shadow-md
+              px-4 py-2 mt-3
+              bg_azul_crayola_ecoHuancan font-medium text-white
+              hover:bg-[#1b6b86ff]
+              focus:outline-none
+              focus:ring-offset-2
+              focus:ring-blue-200
+              sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+              Editar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!--modal dar de baja a usuario-->
+  <div
+    *ngIf="showDarBaja"
+    id="modal-component-container"
+    class="fixed inset-0 z-40">
+    <div
+      class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0"
+      >
+      <div class="fixed inset-0 bg-gray-800 bg-opacity-[0.65]"></div>
+
+      <div class="hidden sm:inline-block sm:align-middle sm:h-screen"></div>
+
+      <div
+        class="
+        inline-block
+        align-bottom
+        bg-white
+        rounded-lg
+        text-left
+        overflow-hidden
+        shadow-xl
+        transform
+        transition-all
+        w-full
+        sm:my-8
+        sm:align-middle
+        sm:max-w-md">
+        <form
+          autocomplete="off"
+          (ngSubmit)="idUsuario !=null? darbajausuario(idUsuario) : null"
+          >
+          <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+            <div class="sm:flex sm:items-start sm:justify-center gap-4">
+              <div class="h-20 flex items-center">
+                <svg
+                clip-rule="evenodd"
+                fill-rule="evenodd"
+                stroke-linejoin="round"
+                stroke-miterlimit="2"
+                viewBox="0 0 24 24"
+                class="w-12 h-12 fill-[#ff0000] border-2 border-[#ff0000] rounded-md p-2"
+                xmlns="http://www.w3.org/2000/svg">
+                <path d="m20.015 6.506h-16v14.423c0 .591.448 1.071 1 1.071h14c.552 0 1-.48 1-1.071 0-3.905 0-14.423 0-14.423zm-5.75 2.494c.414 0 .75.336.75.75v8.5c0 .414-.336.75-.75.75s-.75-.336-.75-.75v-8.5c0-.414.336-.75.75-.75zm-4.5 0c.414 0 .75.336.75.75v8.5c0 .414-.336.75-.75.75s-.75-.336-.75-.75v-8.5c0-.414.336-.75.75-.75zm-.75-5v-1c0-.535.474-1 1-1h4c.526 0 1 .465 1 1v1h5.254c.412 0 .746.335.746.747s-.334.747-.746.747h-16.507c-.413 0-.747-.335-.747-.747s.334-.747.747-.747zm4.5 0v-.5h-3v.5z" fill-rule="nonzero"/>
+                </svg>
+              </div>
+              <div class="w-full text-center mt-center mt-3 sm:mt-0 sm:text-left space-y-2">
+                <h3 class="text-lg text-gray-900 font-bold">Eliminar</h3>
+                <div class="space-y-2">
+                  <label class="text-gray-700 font-medium flex justify-start">¿Estas seguro de que deseas eliminar a este usuario?</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+            <button
+              (click)="closeDarBaja()"
+              type="button"
+              class="
+              w-full inline-flex
+              justify-center
+              rounded-md border border-transparent
+              shadow-md
+              px-4 py-2
+              bg-white font-medium text-gray-700
+              hover:bg-gray-50
+              focus:outline-none
+              focus:ring-offset-2
+              focus:ring-blue-200
+              sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+              Cancelar
+            </button>
+            <button
+              type="submit"
+              class="
+              w-full inline-flex
+              justify-center
+              rounded-md border border-transparent
+              shadow-md
+              px-4 py-2 mt-3
+              bg-[#1c99beff] font-medium text-white
+              hover:bg-[#1b6b86ff]
+              focus:outline-none
+              focus:ring-offset-2
+              focus:ring-blue-200
+              sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+              Eliminar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,191 @@
+<div class="fixed top-0 z-40 bg-white shadow-md w-full">
+  <div class="flex items-center px-4 h-[80px] w-full">
+    <div class="lg:hidden">
+      <svg
+        (click)="openDropdownMenu()"
+        clip-rule="evenodd"
+        fill-rule="evenodd"
+        class="w-14 h-14 fill-black cursor-pointer hover:bg-gray-200 hover:rounded-md p-4 max-xs:w-20 max-xs:h-20 max-xs:p-4 max-xs:hover:bg-gray-200"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg">
+        <path d="m22 16.75c0-.414-.336-.75-.75-.75h-18.5c-.414 0-.75.336-.75.75s.336.75.75.75h18.5c.414 0 .75-.336.75-.75zm0-5c0-.414-.336-.75-.75-.75h-18.5c-.414 0-.75.336-.75.75s.336.75.75.75h18.5c.414 0 .75-.336.75-.75zm0-5c0-.414-.336-.75-.75-.75h-18.5c-.414 0-.75.336-.75.75s.336.75.75.75h18.5c.414 0 .75-.336.75-.75z" fill-rule="nonzero"/>
+      </svg>
+    </div>
+    <div class="flex-shrink-0 max-sm:hidden">
+      <img src="assets/img/logo-principal.png" [routerLink]="['/inicio']" class="p-2 cursor-pointer max-lg:w-56 max-lg:h-[68px] max-xs:w-96" alt="Logo principal" width="220" height="380">
+    </div>
+    <div class="flex-shrink-0 sm:hidden">
+      <img src="assets/img/logo-secundario.png" [routerLink]="['/inicio']" class="p-2 cursor-pointer max-lg:w-[75px] max-lg:h-[68px] max-xs:w-32 max-xs:h-28" alt="Logo secundario">
+    </div>
+    <div class="flex ml-5 space-x-5 max-lg:hidden h-full w-full">
+      <nav class="inline-flex space-x-5">
+        <div>
+          <a
+            [routerLink]="['/inicio']"
+            routerLinkActive="active-border"
+            [routerLinkActiveOptions]="{exact: true}"
+            class="px-4 h-full flex items-center justify-center text-base text-gray-700 hover-navbar border-b-[5px] border-transparent rounded-[4px] hover:border-[#1c99beff] transition duration-450 font-bold">
+            Inicio
+          </a>
+        </div>
+        <!--para realizar el menu de opciones de servicios, se uso un group-hover:block anteriormente debe estar en un div definido como group-->
+        <div class="group">
+          <div class="h-full">
+            <a
+              [routerLink]="null"
+              [ngClass]="{'active-border' : isSubItemActive('/servicios/recojo_residuos/horario_recoleccion')}"
+              class="inline-flex px-4 h-full items-center justify-center gap-x-1.5 text-base text-gray-700 hover-navbar border-b-[5px] border-transparent rounded-[4px] group-hover:border-[#1c99beff] transition duration-450 cursor-default font-bold select-none"
+              >
+              Servicios
+              <svg class="-mr-1 h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd"/>
+              </svg>
+            </a>
+          </div>
+          <div class="absolute z-50 mt-0 w-56 divide-y divide-gray-100 bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none hidden group-hover:block">
+            <div>
+              <a
+                [routerLink]="['/servicios/recojo_residuos/horario_recoleccion']"
+                routerLinkActive="active active-hover"
+                class="text-gray-700 block hover-navbar hover-dropdown px-4 py-[14px] text-sm font-medium">
+                Recojo de residuos sólidos
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="text-center">
+          <a
+            [routerLink]="['/incidencia']"
+            routerLinkActive="active-border"
+            [routerLinkActiveOptions]="{exact: true}"
+            class="px-4 h-full flex items-center justify-center text-base text-gray-700 hover-navbar border-b-[5px] border-transparent rounded-[4px] hover:border-[#1c99beff] transition duration-450 font-bold">
+            Reportar incidencia
+          </a>
+        </div>
+      </nav>
+    </div>
+    <div
+      *ngIf="authStatus() === 'authenticated'"
+      class="space-x-4 w-full h-full flex justify-end items-center">
+      <div class="flex flex-col cursor-default">
+        <span class="text-lg max-xs:text-3xl max-xs:leading-normal">{{user()?.usuario_nombre}}</span>
+        <span class="flex justify-end text-md max-xs:text-3xl max-xs:leading-normal">{{user()?.rol_nombre}}</span>
+      </div>
+      <div class="group">
+        <div class="h-12 w-12 rounded-full bg_azul_crayola_ecoHuancan text-white font-bold flex justify-center items-center text-2xl cursor-default group max-xs:h-[48px] max-xs:w-[48px] max-xs:text-5xl">
+          {{initialUser}}
+        </div>
+        <div class="absolute top-[64px] end-2 h-[98px] w-40 bg-white shadow-lg ring-1 ring-black ring-opacity-5 divide-y-2 focus:outline-none hidden group-hover:block max-xs:top-[59px] max-xs:w-60 max-xs:h-44">
+          <a
+            [routerLink]="['/incidencia/listado-reporte']"
+            class="text-gray-700 block px-4 py-[14px] text-sm hover-navbar cursor-pointer max-xs:py-[12px] max-xs:text-3xl"
+            >
+            Mis reportes
+          </a>
+          <a (click)="onLogout()"
+            class="text-gray-700 block px-4 py-[14px] text-sm hover-navbar cursor-pointer max-xs:py-[12px] max-xs:text-3xl"
+            >
+            Cerrar sesion
+          </a>
+        </div>
+      </div>
+    </div>
+    <div
+      class="space-x-4 w-full h-full flex justify-end items-center"
+      *ngIf="authStatus() === 'notAuthenticated'">
+      <a [routerLink]="['/autenticacion/iniciar_sesion']" class="bg_azul_crayola_ecoHuancan px-3 py-2.5 text-white rounded-md hover:bg-[#1c99beff] font-medium text-center max-xs:text-[13px] max-xs:px-8 max-xs:py-5 max-xs:rounded-xl">Iniciar sesión</a>
+      <a [routerLink]="['/autenticacion/registrar']" class="bg_verde_esmeralda_ecoHuancan px-4 py-2.5 text-white rounded-md hover:bg-green-700 font-medium max-xs:text-[13px] max-xs:px-8 max-xs:py-5 max-xs:rounded-xl max-xsm:hidden">Regístrate</a>
+    </div>
+  </div>
+</div>
+
+<!--menu desplegable horizontal-->
+<div *ngIf="showDropdownMenu">
+  <div
+    (click)="closeDropdownMenu()"
+    class="w-[100%] h-full fixed top-0 left-0 right-0 bg-gray-800 bg-opacity-[0.50] z-50">
+  </div>
+</div>
+
+<!-- Menú lateral siempre en el DOM -->
+<div
+  [ngClass]="{'translate-x-0': showDropdownMenu, '-translate-x-full': !showDropdownMenu}"
+  class="transform transition-transform duration-300 fixed top-0 left-0 w-[280px] h-full bg-white z-50 py-10
+  max-xs:w-[50%] lg:hidden max-xsl:w-[60%]
+  ">
+  <div class="flex flex-col h-full">
+
+    <div *ngFor="let item of menuItems()" class="w-full">
+      <a
+        *ngIf="!item.subItems.length"
+        [routerLink]="item.router"
+        routerLinkActive="bg_azul_crayola_ecoHuancan text-white"
+        [routerLinkActiveOptions]="{exact: true}"
+        class="w-full inline-flex px-4 py-2 text-base max-xs:text-3xl max-xs:px-8 max-xs:py-4 ">
+        {{item.title}}
+      </a>
+
+      <a
+        *ngIf="item.subItems.length"
+        (click)="toggleServicio(item)"
+        [ngClass]="{'bg_azul_crayola_ecoHuancan text-white group' : isSubItemActiveDinamico(item)}"
+        [routerLink]="item.router"
+        class="w-full inline-flex justify-between px-4 py-2 mb-2 text-base max-xs:text-3xl max-xs:px-8 max-xs:py-4 cursor-default">
+        {{item.title}}
+
+        <div class="self-center">
+          <svg *ngIf="item.open" xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="text-black group-[]:text-white">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5l-7 7-7-7" />
+          </svg>
+          <svg *ngIf="!item.open" xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="text-black group-[]:text-white">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l7-7 7 7" />
+          </svg>
+        </div>
+      </a>
+
+      <!-- Submenú desplegable -->
+      <div
+        [ngClass]="{
+          'max-h-0 opacity-0 overflow-hidden': !item.open,
+          'max-h-[100px] opacity-100': item.open
+        }"
+        class="transform transition-transform duration-300 ease-in-out ml-6 border-l-2 gap-y-1 border-gray-300 max-lg:flex max-lg:flex-col
+        max-xs:ml-12"
+        >
+
+        <a *ngFor="let subItem of item.subItems"
+          [routerLink]="subItem.router"
+          routerLinkActive="bg-[#87cadf] text-white"
+          class="flex w-auto ml-4 mr-4 px-2 rounded-md py-2 text-sm max-xs:text-[14px] max-xs:py-4 max-xs:ml-5 max-xs:mr-5 max-xs:px-4 max-xs:leading-snug"
+          >
+          {{subItem.title}}
+        </a>
+
+      </div>
+    </div>
+
+    <a *ngIf="authStatus() === 'authenticated'"
+      [routerLink]="['/incidencia/listado-reporte']"
+      routerLinkActive="bg_azul_crayola_ecoHuancan text-white"
+      class="w-full px-4 py-2 text-base max-xs:text-3xl max-xs:px-8 max-xs:py-4">
+      Mis reportes
+    </a>
+
+
+    <div class="flex flex-col justify-end h-[89.5%] w-full px-8 gap-y-4"
+      *ngIf="authStatus() === 'notAuthenticated'"
+      >
+      <a
+        [routerLink]="['/autenticacion/registrar']"
+        class="bg_verde_esmeralda_ecoHuancan px-4 py-2.5 text-white rounded-md hover:bg-green-700 font-medium text-center max-xs:text-3xl max-xs:px-8 max-xs:py-5">
+        Registrarse
+      </a>
+      <a
+        [routerLink]="['/autenticacion/iniciar_sesion']"
+        class="bg_azul_crayola_ecoHuancan px-3 py-2.5 text-white rounded-md hover:bg-[#1b6b86ff] font-medium text-center max-xs:text-3xl max-xs:px-8 max-xs:py-5">
+        Iniciar sesión
+      </a>
+    </div>
+  </div>
+</div>
+

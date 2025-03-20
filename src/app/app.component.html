@@ -1,0 +1,16 @@
+<div *ngIf="!finishedAuthCheck()">
+  <div class="fixed top-0 z-40 bg-white shadow-md w-full">
+    <div class="flex items-center px-4 h-[80px] w-full">
+      <div class="lg:hidden">
+      </div>
+      <div class="flex-shrink-0 max-xs:hidden">
+        <img src="assets/img/logo-principal.png" [routerLink]="['/inicio']" class="p-2 cursor-pointer max-lg:w-48 max-lg:h-[68px] max-xs:w-96" alt="Logo principal" width="220" height="380">
+      </div>
+      <div class="flex-shrink-0 xs:hidden">
+        <img src="assets/img/logo-secundario.png" [routerLink]="['/inicio']" class="p-2 cursor-pointer max-lg:w-48 max-lg:h-[68px] max-xs:w-32 max-xs:h-28" alt="Logo secundario">
+      </div>
+    </div>
+  </div>
+</div>
+
+<router-outlet *ngIf="finishedAuthCheck()"></router-outlet>

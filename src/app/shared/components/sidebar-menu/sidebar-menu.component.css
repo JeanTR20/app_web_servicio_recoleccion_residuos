@@ -1,0 +1,10 @@
+.active-route-link-hover{
+  background-color: #1c99beff;
+  color: white;
+  font-weight: 500;
+}
+
+.scrollbar-custom {
+  scrollbar-color: #ffffff #1b6b86ff;
+}
+

@@ -1,0 +1,568 @@
+<div class="flex-1 pl-[330px] pr-8 py-10 text-white w-full h-full overflow-x-hidden">
+  <div class="container mx-auto">
+    <h1 class="text-4xl font-bold mb-4 text_azul_azulado_ecoHuancan">PERSONAL DE RECOLECCIÓN</h1>
+
+    <div class="mb-4 bg_azul_azulado_ecoHuancan p-8 rounded w-[60%] space-y-4">
+      <form
+        autocomplete="off"
+        [formGroup]="myform"
+        (ngSubmit)="crearpersonal()"
+        >
+        <div class="flex gap-4 w-full">
+          <div class="w-52">
+            <label class="block text-white text-sm font-bold py-1">Nombre</label>
+            <div>
+              <input
+                type="text"
+                formControlName="nombre_completo"
+                placeholder=""
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              />
+            </div>
+          </div>
+          <div class="w-52">
+            <label class="block text-white text-sm font-bold py-1">Apellido Paterno</label>
+            <div>
+              <input
+                type="text"
+                formControlName="apellido_paterno"
+                placeholder=""
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                />
+            </div>
+          </div>
+          <div class="w-52">
+            <label class="block text-white text-sm font-bold py-1">Apellido Materno</label>
+            <div>
+              <input
+                type="text"
+                formControlName="apellido_materno"
+                placeholder=""
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                />
+            </div>
+          </div>
+          <div class="w-52">
+            <label class="block text-white text-sm font-bold py-1">Fecha Nac.</label>
+            <div>
+              <input
+                id="fecha_nacimiento"
+                type="date"
+                formControlName="fecha_nacimiento"
+                maxlength="10"
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="flex gap-4 w-full">
+          <div class="w-52">
+            <label class="block text-white text-sm font-bold py-1">Género</label>
+            <div>
+              <select
+                formControlName="genero"
+                class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mr-4">
+                <option value="" selected>Selecciona</option>
+                <option value="Masculino">Masculino</option>
+                <option value="Femenino">Femenino</option>
+              </select>
+            </div>
+          </div>
+          <div class="w-[430px]">
+            <label class="block text-white text-sm font-bold py-1">Dirección</label>
+            <div>
+              <input
+                type="text"
+                formControlName="direccion"
+                placeholder=""
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mr-4"/>
+            </div>
+          </div>
+          <div class="w-52">
+            <label class="block text-white text-sm font-bold py-1">Teléfono</label>
+            <div>
+              <input
+                type="text"
+                formControlName="telefono"
+                placeholder=""
+                maxlength="9"
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mr-4"/>
+            </div>
+          </div>
+        </div>
+        <div class="w-[420px]">
+          <label class="block text-white text-sm font-bold py-1">Correo</label>
+          <div>
+            <input
+              type="email"
+              formControlName="correo"
+              placeholder="example@example.com"
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mr-4"/>
+          </div>
+        </div>
+        <div class="w-52  space-y-2">
+          <label class="block text-white text-sm font-bold py-1">Tipo de Carnet</label>
+          <div>
+            <select
+              id="tipo_carnet"
+              formControlName="tipo_carnet"
+              class="shadow border rounded w-full py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mr-4">
+              <option value="" selected>Selecciona un tipo</option>
+              <option value="DNI">DNI</option>
+              <option value="PASAPORTE">PASAPORTE</option>
+              <option value="CARNET DE EXTRANJERÍA">CARNET DE EXTRANJERÍA</option>
+            </select>
+          </div>
+          <div>
+            <input
+              type="text"
+              formControlName="carnet_identidad"
+              placeholder=""
+              class="shadow appearance-none border rounded w-full py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            />
+          </div>
+        </div>
+        <div class="w-52">
+          <label class="block text-white text-sm font-bold py-1">Usuario</label>
+          <div>
+            <input
+              type="text"
+              formControlName="nombre_usuario"
+              placeholder="Example123"
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mr-4"/>
+          </div>
+        </div>
+        <div class="w-[420px]">
+          <label class="block text-white text-sm font-bold py-1">Contraseña</label>
+          <div>
+            <input
+              type="password"
+              formControlName="contrasena"
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight text-lg focus:outline-none focus:shadow-outline mr-8"/>
+          </div>
+        </div>
+
+        <div class="w-full flex justify-end">
+          <button
+            type="submit"
+            class="bg-white hover:bg-[#1c99beff] hover:text-white text_azul_crayola_ecoHuancan font-bold py-2 px-8 rounded focus:outline-none focus:shadow-outline">
+            Añadir
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="text-center mt-14">
+    <h2 class="text-black text-lg font-bold py-4">CAMIÓN RECOLECTOR COMPACTADOR</h2>
+    <div class="flex w-full py-4">
+      <div class="flex justify-center w-full">
+        <div class="flex justify-center px-5 w-[50%] py-1 mr-40 border border-green-800 rounded-full text-black placeholder-gray-500 space-x-4">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="w-11 h-10 p-2 fill-black"
+            viewBox="0 0 24 24">
+            <path d="M23.809 21.646l-6.205-6.205c1.167-1.605 1.857-3.579 1.857-5.711 0-5.365-4.365-9.73-9.731-9.73-5.365 0-9.73 4.365-9.73 9.73 0 5.366 4.365 9.73 9.73 9.73 2.034 0 3.923-.627 5.487-1.698l6.238 6.238 2.354-2.354zm-20.955-11.916c0-3.792 3.085-6.877 6.877-6.877s6.877 3.085 6.877 6.877-3.085 6.877-6.877 6.877c-3.793 0-6.877-3.085-6.877-6.877z"/>
+          </svg>
+          <!--barra de busqueda-->
+          <input
+            type="text"
+            [(ngModel)]="textBusqueda"
+            placeholder="Buscar por DNI o nombres y Apellidos"
+            class="focus:outline-none w-full"
+          >
+          <!--borrar texto-->
+          <svg
+            (click)="borrarTexto()"
+            clip-rule="evenodd"
+            fill-rule="evenodd"
+            stroke-linejoin="round"
+            stroke-miterlimit="2"
+            viewBox="0 0 24 24"
+            class="w-11 h-10 p-2 cursor-pointer hover:rounded-full hover:bg-gray-300 hover:stroke-white"
+            xmlns="http://www.w3.org/2000/svg">
+            <path stroke="black" stroke-width="2" d="m12 10.93 5.719-5.72c.146-.146.339-.219.531-.219.404 0 .75.324.75.749 0 .193-.073.385-.219.532l-5.72 5.719 5.719 5.719c.147.147.22.339.22.531 0 .427-.349.75-.75.75-.192 0-.385-.073-.531-.219l-5.719-5.719-5.719 5.719c-.146.146-.339.219-.531.219-.401 0-.75-.323-.75-.75 0-.192.073-.384.22-.531l5.719-5.719-5.72-5.719c-.146-.147-.219-.339-.219-.532 0-.425.346-.749.75-.749.192 0 .385.073.531.219z"/>
+          </svg>
+          <!--boton buscar-->
+          <svg
+            (click)="buscarpersonal()"
+            xmlns="http://www.w3.org/2000/svg"
+            class="w-[46px] h-10 sm:w-[46px] sm:h-10 p-2 bg-[#1b6b86ff] hover:bg-[#1c99beff] cursor-pointer rounded-full fill-white"
+            viewBox="0 0 24 24">
+            <path stroke="white" stroke-width="2" d="M23.809 21.646l-6.205-6.205c1.167-1.605 1.857-3.579 1.857-5.711 0-5.365-4.365-9.73-9.731-9.73-5.365 0-9.73 4.365-9.73 9.73 0 5.366 4.365 9.73 9.73 9.73 2.034 0 3.923-.627 5.487-1.698l6.238 6.238 2.354-2.354zm-20.955-11.916c0-3.792 3.085-6.877 6.877-6.877s6.877 3.085 6.877 6.877-3.085 6.877-6.877 6.877c-3.793 0-6.877-3.085-6.877-6.877z"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="w-full">
+    <div class="shadow-lg">
+      <table class="min-w-full">
+        <thead>
+          <tr class="bg_azul_azulado_ecoHuancan text-white text-center align-middle">
+            <th class="px-2 py-4">N° CARNET</th>
+            <th class="px-2 py-4">TIPO CARNET</th>
+            <th class="px-2 py-4">NOMBRES Y APELLIDOS</th>
+            <th class="px-2 py-4">DIRECCIÓN</th>
+            <th class="px-2 py-4">TELÉFONO</th>
+            <th class="px-2 py-4">CORREO</th>
+            <!-- <th class="px-2 py-4">CONTRASEÑA</th> -->
+            <th class="px-2 py-4">ACCIÓN</th>
+          </tr>
+        </thead>
+        <tbody *ngIf="personal.length > 0, else noReporteTemplate">
+          <tr *ngFor="let item of personal; let i=index"
+            [ngClass]="{'bg-gray-100': i % 2}"
+            class="text-center align-middle">
+            <td class="px-2 py-2 text-black">{{item.usuario_carnet_identidad}}</td>
+            <td class="px-2 py-2 text-black">{{item.usuario_tipo_carnet}}</td>
+            <td class="px-2 py-2 text-black break-words max-w-xs">{{item.apellidos_nombres}}</td>
+            <td class="px-2 py-2 text-black break-words max-w-xs">{{item.usuario_direccion}}</td>
+            <td class="px-2 py-2 text-black">{{item.usuario_telefono}}</td>
+            <td class="px-2 py-2 text-black break-words max-w-xs">{{item.usuario_correo}}</td>
+            <!-- <td class="px-2 py-2 text-black">{{item.usuario_contrasena}}</td> -->
+            <td class="w-full h-full py-2 px-5 space-x-4 flex justify-center items-center">
+              <!--Editar-->
+              <svg
+                (click)="openEditar(item.usuario_id)"
+                clip-rule="evenodd"
+                fill-rule="evenodd"
+                stroke-linejoin="round"
+                stroke-miterlimit="2"
+                viewBox="0 0 24 24"
+                class="w-12 h-12 fill-[#1c99beff]  border border-[#1c99beff] rounded-md p-2 hover:bg-[#1c99beff] hover:fill-[#ffffff] cursor-pointer"
+                xmlns="http://www.w3.org/2000/svg">
+                <path d="m4.481 15.659c-1.334 3.916-1.48 4.232-1.48 4.587 0 .528.46.749.749.749.352 0 .668-.137 4.574-1.492zm1.06-1.061 3.846 3.846 11.321-11.311c.195-.195.293-.45.293-.707 0-.255-.098-.51-.293-.706-.692-.691-1.742-1.74-2.435-2.432-.195-.195-.451-.293-.707-.293-.254 0-.51.098-.706.293z" fill-rule="nonzero"/>
+              </svg>
+              <!--Eliminar-->
+              <svg
+                (click)="openDarBaja(item.usuario_id)"
+                clip-rule="evenodd"
+                fill-rule="evenodd"
+                stroke-linejoin="round"
+                stroke-miterlimit="2"
+                viewBox="0 0 24 24"
+                class="w-12 h-12 fill-[#ff0000] border border-[#ff0000] rounded-md p-2 hover:border-2 hover:border-[#ff0000] hover:bg-[#ff0000] hover:fill-[#ffffff] cursor-pointer"
+                xmlns="http://www.w3.org/2000/svg">
+                <path d="m20.015 6.506h-16v14.423c0 .591.448 1.071 1 1.071h14c.552 0 1-.48 1-1.071 0-3.905 0-14.423 0-14.423zm-5.75 2.494c.414 0 .75.336.75.75v8.5c0 .414-.336.75-.75.75s-.75-.336-.75-.75v-8.5c0-.414.336-.75.75-.75zm-4.5 0c.414 0 .75.336.75.75v8.5c0 .414-.336.75-.75.75s-.75-.336-.75-.75v-8.5c0-.414.336-.75.75-.75zm-.75-5v-1c0-.535.474-1 1-1h4c.526 0 1 .465 1 1v1h5.254c.412 0 .746.335.746.747s-.334.747-.746.747h-16.507c-.413 0-.747-.335-.747-.747s.334-.747.747-.747zm4.5 0v-.5h-3v.5z" fill-rule="nonzero"/>
+              </svg>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <ng-template #noReporteTemplate>
+    <tr>
+      <td colspan="7" class="text-center py-10">
+        <div class="flex flex-col items-center justify-center">
+          <svg width="169" height="122" viewBox="0 0 269 222" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M18.1054 0.561981C13.9256 1.83235 10.3819 4.10087 7.11083 7.63976C0.659472 14.3546 0.386879 15.3527 0.114287 35.9509C-0.158306 50.5601 0.0234226 54.6435 1.02293 55.1879C1.65898 55.6416 12.1084 56.0046 24.2842 56.0046C45.0921 56.0046 46.2733 56.0953 46.2733 57.7287C46.2733 59.1805 45.2738 59.4527 38.8224 59.9064C29.4634 60.6324 23.5573 63.3546 17.7419 69.6157C10.4728 77.4194 6.65651 87.7638 5.74787 102.282C4.47577 120.612 10.1093 141.482 19.014 151.555L21.74 154.64L21.9217 182.679C22.1943 209.992 22.1943 210.718 24.0116 210.718C25.8289 210.718 25.8289 209.992 26.1014 183.314L26.2832 155.91L31.099 155.638C35.097 155.366 35.8239 155.093 35.8239 153.551C35.8239 151.918 35.097 151.736 30.1903 151.464C24.9202 151.192 24.375 151.01 21.9217 147.834C13.9256 137.671 9.10984 119.16 10.2002 102.918C11.9266 78.6898 21.74 65.7138 39.5494 64.4435L46.2733 63.899V72.0657V80.1416L39.4585 81.8657C32.7345 83.499 31.2807 84.5879 32.6437 86.8564C33.2797 87.8546 36.0965 87.4009 47.818 84.225C55.7232 82.0472 66.0817 78.962 70.8066 77.2379C75.5316 75.5138 80.0748 74.1527 80.9834 74.1527C82.619 74.1527 84.4363 78.4175 84.4363 82.3194C84.4363 86.2213 81.256 88.5805 65.6274 96.0213C57.4496 99.9231 50.8165 103.462 50.8165 103.825C50.8165 104.188 51.4526 107.636 52.2703 111.356C55.3597 126.238 50.8165 134.495 37.0052 138.942C35.0061 139.577 34.8244 142.027 36.7326 142.753C37.4595 143.025 39.9128 142.662 42.0935 141.936L46.1824 140.484L46.455 149.74C46.7276 158.269 46.8185 158.995 48.5449 158.995C50.2713 158.995 50.3622 158.269 50.6348 148.106C50.8165 140.303 51.2708 136.855 52.1795 135.856C52.9064 135.04 54.3602 132.408 55.4506 129.958C57.7222 124.877 58.1765 115.258 56.4501 109.269L55.4506 105.912L70.534 98.6527L85.6175 91.3935H96.8847C106.335 91.3935 108.243 91.1213 108.697 89.9416C109.606 87.5824 107.152 86.8564 97.2481 86.8564C89.0703 86.8564 87.98 86.675 88.4343 85.4046C88.7069 84.5879 88.9795 82.7731 88.9795 81.3213V78.6898H117.511C140.863 78.6898 146.133 78.5083 146.497 77.4194C147.678 74.425 145.224 74.1527 116.148 74.1527H87.3439L85.981 71.975C85.1632 70.7953 83.7094 69.6157 82.8007 69.4342C81.8012 69.162 75.3498 70.8861 68.3533 73.2453C61.4476 75.6046 54.7237 77.7824 53.3607 78.1453L50.8165 78.6898V49.6527C50.8165 16.8046 50.4531 14.4453 43.82 7.7305L40.458 4.28235H109.878C175.937 4.28235 179.571 4.37309 183.024 6.00643C187.84 8.27494 191.474 11.9046 193.564 16.4416C195.109 19.799 195.291 22.8842 195.291 49.7435V79.325L189.203 77.9638C177.481 75.5138 162.579 78.1453 152.494 84.3157L148.314 86.8564H131.867C117.783 86.8564 115.421 87.0379 114.967 88.3083C114.24 90.1231 114.24 151.101 114.967 153.732C115.512 155.729 115.966 155.819 124.78 155.819H134.048L135.593 158.451C138.591 163.532 147.859 171.79 154.22 175.147C163.216 179.956 171.03 181.499 182.115 180.955C187.113 180.682 192.11 180.138 193.292 179.866L195.291 179.231V198.377V217.523H123.054H50.8165V194.929C50.8165 172.062 50.4531 169.793 47.5454 172.153C46.455 173.151 46.2733 177.053 46.455 197.469L46.7276 221.606L122.963 221.879C183.387 222.06 199.379 221.879 200.016 220.971C200.379 220.336 200.742 210.173 200.742 198.468V177.143L204.286 175.238L207.83 173.332L229.456 195.019C241.45 206.997 252.262 217.342 253.625 218.068C260.713 221.788 268.891 216.706 268.891 208.54C268.891 204.093 269.527 204.819 245.084 180.319C234.453 169.612 225.185 160.175 224.549 159.358C223.64 158.088 223.913 156.908 226.184 152.008C231.727 140.303 232.908 126.056 229.456 114.714C225.73 102.736 216.644 90.9398 206.013 84.4064L200.833 81.2305L200.561 50.2879C200.288 20.7972 200.106 19.0731 198.289 14.9898C195.927 9.90828 190.657 4.46383 185.75 2.01383C182.206 0.289758 179.662 0.199018 101.246 0.0175363C56.7227 -0.0732045 19.3775 0.199018 18.1054 0.561981ZM34.0975 6.18791C39.095 8.54717 44.0926 14.0824 45.2738 18.5286C45.819 20.4342 46.2733 28.6009 46.2733 36.6768V51.4675H25.3745H4.47577V35.7694C4.47577 22.612 4.74836 19.6175 6.20219 16.5324C8.01947 12.5398 13.2896 7.45828 17.5602 5.55272C21.8308 3.73791 29.6452 4.01013 34.0975 6.18791ZM188.112 82.3194C201.106 84.7694 214.917 94.9324 221.005 106.638C224.185 112.627 227.093 123.879 227.093 129.686C227.093 131.319 226.457 135.493 225.73 139.032C222.641 153.732 213.463 165.347 199.561 172.153C191.929 175.964 191.202 176.145 181.752 176.508C169.849 176.962 162.489 175.147 153.857 169.612C139.318 160.266 131.686 146.382 131.686 129.414C131.686 110.358 141.317 94.7509 158.491 86.312C168.031 81.6842 177.572 80.3231 188.112 82.3194ZM139.682 94.8416C131.686 103.643 127.142 116.075 127.142 128.96C127.142 136.219 127.688 139.849 130.414 149.286C130.959 151.373 130.868 151.373 125.234 151.101L119.419 150.829L119.146 122.245C119.056 106.547 119.146 93.2083 119.419 92.5731C119.692 91.6657 122.872 91.3935 131.322 91.3935H142.771L139.682 94.8416ZM264.347 209.084C264.347 211.081 263.711 212.442 262.348 213.349C257.714 216.616 256.806 215.981 235.271 194.203C224.004 182.769 214.281 172.788 213.554 171.881C212.373 170.429 212.646 169.884 216.28 166.164L220.278 162.171L242.267 184.131C261.894 203.731 264.347 206.453 264.347 209.084Z" fill="#1C99BE"/>
+            <path d="M173.483 94.2971C162.216 95.9304 151.857 103.734 146.496 114.805C144.316 119.342 144.043 121.066 143.952 129.051C143.952 137.308 144.225 138.669 146.769 144.023C159.853 171.517 197.925 171.608 211.373 144.295C214.281 138.216 215.19 127.69 213.463 120.34C209.284 103.19 191.747 91.7564 173.483 94.2971ZM190.475 100.558C197.653 103.19 205.195 110.812 207.921 118.253C210.646 125.421 210.374 136.129 207.285 142.48C204.286 148.469 198.016 154.64 191.838 157.453C187.567 159.449 185.386 159.903 178.935 159.903C172.302 159.903 170.484 159.54 166.032 157.362C159.308 154.095 152.403 146.564 149.858 139.667C147.223 132.862 147.678 123.062 150.858 116.347C153.856 109.905 161.125 103.008 167.123 100.649C173.937 98.0175 183.478 98.0175 190.475 100.558Z" fill="#1C99BE"/>
+            <path d="M80.9835 38.038C81.2561 40.125 81.4379 40.125 94.8858 40.125C108.334 40.125 108.515 40.125 108.788 38.038L109.061 36.0417H94.8858H80.7109L80.9835 38.038Z" fill="#1C99BE"/>
+            <path d="M115.057 37.312C113.876 40.3972 116.511 40.5787 149.041 40.3972L181.207 40.125L181.479 38.038L181.752 36.0417H148.677C120.782 36.0417 115.421 36.2231 115.057 37.312Z" fill="#1C99BE"/>
+            <path d="M67.3536 50.7416L67.6262 52.8287L123.871 53.1009C163.125 53.1916 180.48 53.0101 181.297 52.2842C181.933 51.7398 182.206 50.7416 181.933 50.0157C181.57 48.9268 172.938 48.7453 124.235 48.7453H67.0811L67.3536 50.7416Z" fill="#1C99BE"/>
+            <path d="M67.2626 62.7194C64.6275 65.8953 67.4443 65.986 124.961 65.8045C180.479 65.5323 181.206 65.5323 181.206 63.7175C181.206 61.9027 180.479 61.9027 124.78 61.6305C77.8029 61.449 68.1713 61.6305 67.2626 62.7194Z" fill="#1C99BE"/>
+            <path d="M81.4378 100.105C81.0744 100.468 80.8018 101.556 80.8018 102.464C80.8018 104.006 81.8013 104.097 94.9766 104.097H109.061L108.788 102.01C108.515 100.014 108.243 100.014 95.2492 99.7416C87.98 99.6509 81.8013 99.8324 81.4378 100.105Z" fill="#1C99BE"/>
+            <path d="M67.1719 114.986C67.1719 117.618 69.08 117.799 89.8879 117.527C108.424 117.255 108.515 117.255 108.788 115.168L109.06 113.171H88.1615C67.8079 113.171 67.1719 113.262 67.1719 114.986Z" fill="#1C99BE"/>
+            <path d="M67.3536 127.871L67.6262 129.958H88.0707H108.515L108.788 127.871L109.06 125.875H88.0707H67.0811L67.3536 127.871Z" fill="#1C99BE"/>
+            <path d="M67.3536 140.575L67.6262 142.662H88.0707H108.515L108.788 140.575L109.06 138.579H88.0707H67.0811L67.3536 140.575Z" fill="#1C99BE"/>
+            <path d="M67.4443 152.643C66.4448 155.366 68.5347 155.91 79.0749 155.638C88.7065 155.366 89.4334 155.275 89.4334 153.551C89.4334 151.827 88.7065 151.736 78.7115 151.464C69.625 151.282 67.9895 151.464 67.4443 152.643Z" fill="#1C99BE"/>
+            </svg>
+          <p class="text_azul_crayola_ecoHuancan text-lg mt-2">No hay datos</p>
+        </div>
+      </td>
+    </tr>
+  </ng-template>
+
+  <!--modal del editar un horario-->
+  <div
+    *ngIf="showEditar"
+    id="modal-component-container"
+    class="fixed inset-0 z-40 pt-[46px]">
+    <div
+      class="modal-flex-container flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0"
+      >
+      <div class="modal-bg-container fixed inset-0 bg-gray-800 bg-opacity-[0.65]"></div>
+
+      <div class="modal-space-container hidden sm:inline-block sm:align-middle sm:h-screen"></div>
+
+      <div
+        class="
+        modal-container
+        inline-block
+        align-bottom
+        bg-white
+        rounded-lg
+        text-left
+        overflow-hidden
+        shadow-xl
+        transform
+        transition-all
+        w-full
+        sm:my-8
+        sm:align-middle
+        sm:max-w-2xl">
+        <form
+          autocomplete="off"
+          [formGroup]="myform"
+          (ngSubmit)="idPersonalEditar != null ? editarpersonal(idPersonalEditar) : null"
+          >
+          <div class="modal-wrapper bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+            <div class="modal-wrapper-flex sm:flex sm:items-start sm:justify-center">
+
+              <div
+                class="modal-content w-full text-center mt-center mt-3 sm:mt-0 sm:text-left space-y-5">
+                <h3 class="text-lg text-gray-900 font-bold">Editar</h3>
+                <div class="flex space-x-2">
+                  <label class="text-gray-400 font-medium flex justify-start text-lg">ID :</label>
+                  <p
+                    class="text-gray-400 text-lg">{{idPersonalEditar}}</p>
+                </div>
+                <div class="flex space-x-4">
+                  <div class="space-y-2">
+                    <label class="text-gray-700 font-medium flex justify-start">Nombre Completo</label>
+                    <input
+                      type="text"
+                      formControlName="nombre_completo"
+                      class="px-3 py-2 w-full border-2 border-[#1c99beff] rounded-md focus:outline-none text-black"
+                    >
+                  </div>
+                  <div class="space-y-2">
+                    <label class="text-gray-700 font-medium flex justify-start">Apellido Paterno</label>
+                    <input
+                      type="text"
+                      formControlName="apellido_paterno"
+                      class="px-3 py-2 w-full border-2 border-[#1c99beff] rounded-md focus:outline-none text-black"
+                    >
+                  </div>
+                  <div class="space-y-2">
+                    <label class="text-gray-700 font-medium flex justify-start">Apellido Materno</label>
+                    <input
+                      type="text"
+                      formControlName="apellido_materno"
+                      class="px-3 py-2 w-full border-2 border-[#1c99beff] rounded-md focus:outline-none text-black"
+                    >
+                  </div>
+                </div>
+                <div class="flex space-x-4">
+                  <div class="space-y-2">
+                    <label class="text-gray-700 font-medium flex justify-start">Fecha Nacimiento</label>
+                    <input
+                      type="date"
+                      formControlName="fecha_nacimiento"
+                      class="px-3 py-2 w-[197px] border-2 border-[#1c99beff] rounded-md focus:outline-none text-black"
+                    >
+                  </div>
+                  <div class="space-y-2">
+                    <label class="text-gray-700 font-medium flex justify-start">Género</label>
+                    <select
+                      formControlName="genero"
+                      class="shadow border rounded py-2.5 px-3 w-[197px] text-gray-700 focus:outline-none">
+                      <option value="Masculino">Masculino</option>
+                      <option value="Femenino">Femenino</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="flex space-x-4">
+                  <div class="space-y-2 w-[65%]">
+                    <label class="text-gray-700 font-medium flex justify-start">Direccion</label>
+                    <input
+                      type="text"
+                      formControlName="direccion"
+                      class="px-3 py-2 w-full border-2 border-[#1c99beff] rounded-md focus:outline-none text-black"
+                    >
+                  </div>
+                </div>
+                <div class="flex space-x-4">
+                  <div class="space-y-2">
+                    <label class="text-gray-700 font-medium flex justify-start">Teléfono</label>
+                    <input
+                      type="text"
+                      formControlName="telefono"
+                      class="px-3 py-2 w-[197px] border-2 border-[#1c99beff] rounded-md focus:outline-none text-black"
+                    >
+                  </div>
+                  <div class="space-y-2 w-full">
+                    <label class="text-gray-700 font-medium flex justify-start">Correo</label>
+                    <input
+                      type="text"
+                      formControlName="correo"
+                      class="px-3 py-2 w-full border-2 border-[#1c99beff] rounded-md focus:outline-none text-black"
+                    >
+                  </div>
+                </div>
+                <div class="flex space-x-4">
+                  <div class="space-y-2">
+                    <label class="text-gray-700 font-medium flex justify-start">Tipo Carnet</label>
+                    <select
+                      formControlName="tipo_carnet"
+                      class="shadow border rounded py-2.5 px-3 w-[198px] text-gray-700 focus:outline-none">
+                      <option value="DNI">DNI</option>
+                      <option value="PASAPORTE">PASAPORTE</option>
+                      <option value="CARNET DE EXTRANJERÍA">CARNET DE EXTRANJERÍA</option>
+                    </select>
+                  </div>
+                  <div class="space-y-2">
+                    <label class="text-gray-700 font-medium flex justify-start">Carnet Identidad</label>
+                    <input
+                      type="text"
+                      formControlName="carnet_identidad"
+                      class="px-3 py-2 w-full border-2 border-[#1c99beff] rounded-md focus:outline-none text-black"
+                    >
+                  </div>
+                </div>
+
+                <div>
+                  <div class="space-y-2">
+                    <label class="text-gray-700 font-medium flex justify-start">Nombre Usuario</label>
+                    <input
+                      type="text"
+                      formControlName="nombre_usuario"
+                      class="px-3 py-2 w-[197px] border-2 border-[#1c99beff] rounded-md focus:outline-none text-black"
+                    >
+                  </div>
+                </div>
+                <div>
+                  <div class="space-y-2">
+                    <label class="text-gray-400 font-medium flex justify-start">Contraseña</label>
+                    <p
+                      class="text-gray-400">{{contrasenaPersonalEditar}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-actions bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+            <button
+              (click)="closeEditar()"
+              type="button"
+              class="
+              w-full inline-flex
+              justify-center
+              rounded-md border border-transparent
+              shadow-md
+              px-4 py-2
+              bg-white font-medium text-gray-700
+              hover:bg-gray-50
+              focus:outline-none
+              focus:ring-offset-2
+              focus:ring-blue-200
+              sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+              Cancelar
+            </button>
+            <button
+              type="submit"
+              class="
+              w-full inline-flex
+              justify-center
+              rounded-md border border-transparent
+              shadow-md
+              px-4 py-2 mt-3
+              bg-[#1c99beff] font-medium text-white
+              hover:bg-[#1b6b86ff]
+              focus:outline-none
+              focus:ring-offset-2
+              focus:ring-blue-200
+              sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+              Editar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!--modal dar de baja a usuario-->
+  <div
+    *ngIf="showDarBaja"
+    id="modal-component-container"
+    class="fixed inset-0 z-40">
+    <div
+      class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0"
+      >
+      <div class="fixed inset-0 bg-gray-800 bg-opacity-[0.65]"></div>
+
+      <div class="hidden sm:inline-block sm:align-middle sm:h-screen"></div>
+
+      <div
+        class="
+        inline-block
+        align-bottom
+        bg-white
+        rounded-lg
+        text-left
+        overflow-hidden
+        shadow-xl
+        transform
+        transition-all
+        w-full
+        sm:my-8
+        sm:align-middle
+        sm:max-w-md">
+        <form
+          autocomplete="off"
+          (ngSubmit)="idUsuario !=null? darbajausuario(idUsuario) : null"
+          >
+          <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+            <div class="sm:flex sm:items-start sm:justify-center gap-4">
+              <div class="h-20 flex items-center">
+                <svg
+                clip-rule="evenodd"
+                fill-rule="evenodd"
+                stroke-linejoin="round"
+                stroke-miterlimit="2"
+                viewBox="0 0 24 24"
+                class="w-12 h-12 fill-[#d33434] border-2 border-[#d33434] rounded-md p-2"
+                xmlns="http://www.w3.org/2000/svg">
+                <path d="m20.015 6.506h-16v14.423c0 .591.448 1.071 1 1.071h14c.552 0 1-.48 1-1.071 0-3.905 0-14.423 0-14.423zm-5.75 2.494c.414 0 .75.336.75.75v8.5c0 .414-.336.75-.75.75s-.75-.336-.75-.75v-8.5c0-.414.336-.75.75-.75zm-4.5 0c.414 0 .75.336.75.75v8.5c0 .414-.336.75-.75.75s-.75-.336-.75-.75v-8.5c0-.414.336-.75.75-.75zm-.75-5v-1c0-.535.474-1 1-1h4c.526 0 1 .465 1 1v1h5.254c.412 0 .746.335.746.747s-.334.747-.746.747h-16.507c-.413 0-.747-.335-.747-.747s.334-.747.747-.747zm4.5 0v-.5h-3v.5z" fill-rule="nonzero"/>
+                </svg>
+              </div>
+              <div class="w-full text-center mt-center mt-3 sm:mt-0 sm:text-left space-y-2">
+                <h3 class="text-lg text-gray-900 font-bold">Eliminar</h3>
+                <div class="space-y-2">
+                  <label class="text-gray-700 font-medium flex justify-start">¿Estas seguro de que deseas dar de baja a este usuario?</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+            <button
+              (click)="closeDarBaja()"
+              type="button"
+              class="
+              w-full inline-flex
+              justify-center
+              rounded-md border border-transparent
+              shadow-md
+              px-4 py-2
+              bg-white font-medium text-gray-700
+              hover:bg-gray-50
+              focus:outline-none
+              focus:ring-offset-2
+              focus:ring-blue-200
+              sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+              Cancelar
+            </button>
+            <button
+              type="submit"
+              class="
+              w-full inline-flex
+              justify-center
+              rounded-md border border-transparent
+              shadow-md
+              px-4 py-2 mt-3
+              bg-[#00A166] font-medium text-white
+              hover:bg-[#008A54]
+              focus:outline-none
+              focus:ring-offset-2
+              focus:ring-blue-200
+              sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+              Eliminar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
