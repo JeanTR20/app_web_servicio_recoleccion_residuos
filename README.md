@@ -1,3 +1,3 @@
-# Mi proyecto subido a netlify
+# Mi proyecto desplegado en netlify
 
-https://dashing-snickerdoodle-8b6db0.netlify.app/#/inicio
+demo: https://servicio-recoleccion-residuos-solidos.netlify.app/#/inicio
